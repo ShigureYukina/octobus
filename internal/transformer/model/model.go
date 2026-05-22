@@ -329,7 +329,6 @@ func (r *InternalLLMRequest) fillMissingToolCallIDs() {
 	}
 }
 
-
 func (r *InternalLLMRequest) fillMissingToolCallIDsFromToolMessages() {
 	for msgIndex := 0; msgIndex < len(r.Messages); msgIndex++ {
 		msg := &r.Messages[msgIndex]
@@ -509,8 +508,6 @@ type Message struct {
 }
 
 func (m *Message) ClearHelpFields() {
-	m.ReasoningContent = nil
-	m.Reasoning = nil
 	m.ReasoningSignature = nil
 }
 
