@@ -477,6 +477,7 @@
             "attempts": "次尝试",
             "success": "成功",
             "failed": "失败",
+            "estimatedNotice": "除时间外其他数据为估算",
             "tps": "T/s"
         }
     },

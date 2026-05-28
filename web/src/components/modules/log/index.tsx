@@ -2,15 +2,17 @@
 
 import { useCallback, useMemo } from 'react';
 import { useLogs, type RelayLog } from '@/api/endpoints/log';
+import { useModelList } from '@/api/endpoints/model';
 import { LogCard } from './Item';
 import { Loader2, Zap, Activity, Database } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { VirtualizedGrid } from '@/components/common/VirtualizedGrid';
+import { getDisplayUsage } from './usage';
 
 /**
  * 计算近 N 条日志的统计指标
  */
-function computeStats(logs: RelayLog[], count: number = 100) {
+function computeStats(logs: RelayLog[], modelPriceMap: Map<string, import('@/api/endpoints/model').LLMInfo>, count: number = 100) {
     const recentLogs = logs.slice(0, count);
     if (recentLogs.length === 0) {
         return { avgFtut: 0, tps: 0, cacheHitRate: 0, count: 0 };
@@ -24,14 +26,15 @@ function computeStats(logs: RelayLog[], count: number = 100) {
     let validFtutCount = 0;
 
     for (const log of recentLogs) {
+        const usage = getDisplayUsage(log, modelPriceMap.get(log.actual_model_name.toLowerCase()));
         if (log.ftut > 0) {
             totalFtut += log.ftut;
             validFtutCount++;
         }
-        totalOutputTokens += log.output_tokens;
+        totalOutputTokens += usage.outputTokens;
         totalUseTime += log.use_time;
-        totalCacheHitTokens += log.cache_hit_tokens ?? 0;
-        totalInputTokens += log.input_tokens;
+        totalCacheHitTokens += usage.cacheHitTokens ?? 0;
+        totalInputTokens += usage.inputTokens;
     }
 
     const avgFtut = validFtutCount > 0 ? totalFtut / validFtutCount : 0;
@@ -44,9 +47,9 @@ function computeStats(logs: RelayLog[], count: number = 100) {
 /**
  * 统计卡片组件
  */
-function LogStats({ logs }: { logs: RelayLog[] }) {
+function LogStats({ logs, modelPriceMap }: { logs: RelayLog[]; modelPriceMap: Map<string, import('@/api/endpoints/model').LLMInfo> }) {
     const t = useTranslations('log.stats');
-    const stats = useMemo(() => computeStats(logs), [logs]);
+    const stats = useMemo(() => computeStats(logs, modelPriceMap), [logs, modelPriceMap]);
 
     const formatDuration = (ms: number) => {
         if (ms < 1000) return `${Math.round(ms)}ms`;
@@ -97,6 +100,15 @@ function LogStats({ logs }: { logs: RelayLog[] }) {
 export function Log() {
     const t = useTranslations('log');
     const { logs, hasMore, isLoading, isLoadingMore, loadMore } = useLogs({ pageSize: 10 });
+    const { data: models } = useModelList();
+
+    const modelPriceMap = useMemo(() => {
+        const map = new Map<string, import('@/api/endpoints/model').LLMInfo>();
+        for (const model of models ?? []) {
+            map.set(model.name.toLowerCase(), model);
+        }
+        return map;
+    }, [models]);
 
     const canLoadMore = hasMore && !isLoading && !isLoadingMore && logs.length > 0;
     const handleReachEnd = useCallback(() => {
@@ -124,7 +136,7 @@ export function Log() {
 
     return (
         <div className="flex flex-col h-full min-h-0">
-            <LogStats logs={logs} />
+            <LogStats logs={logs} modelPriceMap={modelPriceMap} />
             <VirtualizedGrid
                 items={logs}
                 layout="list"
@@ -132,7 +144,7 @@ export function Log() {
                 estimateItemHeight={80}
                 overscan={8}
                 getItemKey={(log) => `log-${log.id}`}
-                renderItem={(log) => <LogCard log={log} />}
+                renderItem={(log) => <LogCard log={log} modelPrice={modelPriceMap.get(log.actual_model_name.toLowerCase())} />}
                 footer={footer}
                 onReachEnd={handleReachEnd}
                 reachEndEnabled={canLoadMore}

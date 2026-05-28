@@ -477,6 +477,7 @@
             "attempts": "attempts",
             "success": "Success",
             "failed": "Failed",
+            "estimatedNotice": "Except time, other values are estimated",
             "tps": "T/s"
         }
     },

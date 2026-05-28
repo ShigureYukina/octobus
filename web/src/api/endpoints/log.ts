@@ -40,6 +40,7 @@ export interface RelayLog {
     ftut: number;                // 首字时间(毫秒)
     use_time: number;            // 总用时(毫秒)
     cost: number;                // 消耗费用
+    usage_recorded: boolean;     // 是否实际记录到了 usage
     request_content: string;     // 请求内容
     response_content: string;    // 响应内容
     error: string;               // 错误信息

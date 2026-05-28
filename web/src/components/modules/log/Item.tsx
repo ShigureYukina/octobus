@@ -9,10 +9,12 @@ import { githubDarkTheme } from '@uiw/react-json-view/githubDark';
 import { githubLightTheme } from '@uiw/react-json-view/githubLight';
 import { useTheme } from 'next-themes';
 import { type RelayLog, type ChannelAttempt } from '@/api/endpoints/log';
+import type { LLMInfo } from '@/api/endpoints/model';
 import { getModelIcon } from '@/lib/model-icons';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { CopyIconButton } from '@/components/common/CopyButton';
+import { getDisplayUsage } from './usage';
 import {
     MorphingDialog,
     MorphingDialogTrigger,
@@ -44,6 +46,39 @@ function formatDuration(ms: number): string {
 function formatTPS(outputTokens: number, useTimeMs: number): string {
     if (useTimeMs <= 0) return '-';
     return (outputTokens / (useTimeMs / 1000)).toFixed(1);
+}
+
+function formatUsageCount(value: number, usageRecorded: boolean): string {
+    if (!usageRecorded) return '-';
+    return value.toLocaleString();
+}
+
+function formatUsageCost(cost: number, usageRecorded: boolean): string {
+    if (!usageRecorded) return '-';
+    return Number(cost).toFixed(6);
+}
+
+function isEstimatedSource(source: string): boolean {
+    return source === 'response' || source === 'estimated';
+}
+
+function EstimateMark({ show, text }: { show: boolean; text: string }) {
+    if (!show) return null;
+    return (
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <span className="ml-1 text-[10px] text-amber-500/80 align-super cursor-help">!</span>
+            </TooltipTrigger>
+            <TooltipContent className="border bg-card px-2 py-1.5 text-xs text-card-foreground rounded-xl shadow-sm">
+                {text}
+            </TooltipContent>
+        </Tooltip>
+    );
+}
+
+function formatUsageTPS(outputTokens: number, useTimeMs: number, usageRecorded: boolean): string {
+    if (!usageRecorded) return '-';
+    return formatTPS(outputTokens, useTimeMs);
 }
 
 function formatCacheHitRate(cacheHitTokens: number | undefined, inputTokens: number): string {
@@ -194,7 +229,7 @@ function DeferredJsonContent({ content, fallbackText }: { content: string | unde
     );
 }
 
-export function LogCard({ log }: { log: RelayLog }) {
+export function LogCard({ log, modelPrice }: { log: RelayLog; modelPrice?: LLMInfo }) {
     const t = useTranslations('log.card');
     const { Avatar: ModelAvatar, color: brandColor } = useMemo(
         () => getModelIcon(log.actual_model_name),
@@ -203,6 +238,9 @@ export function LogCard({ log }: { log: RelayLog }) {
 
     const hasError = !!log.error;
     const hasMultipleAttempts = log.attempts && log.attempts.length > 1;
+    const displayUsage = getDisplayUsage(log, modelPrice);
+    const hasEstimatedData = [displayUsage.inputSource, displayUsage.outputSource, displayUsage.cacheSource, displayUsage.costSource].some(isEstimatedSource);
+    const estimatedNotice = t('estimatedNotice');
     const [isDiagnosticExpanded, setIsDiagnosticExpanded] = useState(false);
 
     return (
@@ -240,6 +278,7 @@ export function LogCard({ log }: { log: RelayLog }) {
                                 <span className="text-muted-foreground truncate" title={log.actual_model_name}>
                                     {log.actual_model_name}
                                 </span>
+                                <EstimateMark show={hasEstimatedData} text={estimatedNotice} />
                                 {log.attempts?.some(a => a.sticky) && (
                                     <Pin className="size-3.5 shrink-0 text-amber-500" />
                                 )}
@@ -259,25 +298,25 @@ export function LogCard({ log }: { log: RelayLog }) {
                                 </div>
                                 <div className="flex items-center gap-1.5">
                                     <ArrowDownToLine className="size-3.5 shrink-0 text-primary" />
-                                    <span>{t('input')} {log.input_tokens.toLocaleString()}</span>
+                                    <span>{t('input')} {formatUsageCount(displayUsage.inputTokens, displayUsage.usageRecorded)}</span>
                                 </div>
                                 <div className="flex items-center gap-1.5">
                                     <ArrowUpFromLine className="size-3.5 shrink-0 text-purple-500" />
-                                    <span>{t('output')} {log.output_tokens.toLocaleString()}</span>
+                                    <span>{t('output')} {formatUsageCount(displayUsage.outputTokens, displayUsage.usageRecorded)}</span>
                                 </div>
                                 <div className="flex items-center gap-1.5">
-                                    <Activity className="size-3.5 shrink-0 text-indigo-500" />
-                                    <span>{formatTPS(log.output_tokens, log.use_time)} token/s</span>
+                                        <Activity className="size-3.5 shrink-0 text-indigo-500" />
+                                    <span>{formatUsageTPS(displayUsage.outputTokens, log.use_time, displayUsage.usageRecorded)} token/s</span>
                                 </div>
                                 <div className="flex items-center gap-1.5">
                                     <DollarSign className="size-3.5 shrink-0 text-primary" />
                                     <span className="font-medium text-primary">
-                                        {t('cost')} {Number(log.cost).toFixed(6)}
+                                        {t('cost')} {formatUsageCost(displayUsage.estimatedCost, displayUsage.costRecorded)}
                                     </span>
                                 </div>
                                 <div className="flex items-center gap-1.5">
                                     <Database className="size-3.5 shrink-0 text-cyan-500" />
-                                    <span>{t('cacheHit')} {formatCacheHitRate(log.cache_hit_tokens, log.input_tokens)}</span>
+                                    <span className="whitespace-nowrap">{t('cacheHit')} {formatCacheHitRate(displayUsage.cacheHitTokens, displayUsage.inputTokens)}</span>
                                 </div>
                             </div>
                             {hasError && (
@@ -312,6 +351,7 @@ export function LogCard({ log }: { log: RelayLog }) {
                                 </Badge>
                             )}
                             <span className="text-muted-foreground">{log.actual_model_name}</span>
+                            <EstimateMark show={hasEstimatedData} text={estimatedNotice} />
                             {log.attempts?.some(a => a.sticky) && (
                                 <Pin className="size-3.5 shrink-0 text-amber-500" />
                             )}
@@ -437,7 +477,7 @@ export function LogCard({ log }: { log: RelayLog }) {
                                                 <Send className="size-4 text-primary" />
                                                 <span className="text-sm font-medium text-card-foreground">{t('requestContent')}</span>
                                                 <Badge variant="secondary" className="ml-auto text-xs">
-                                                    {log.input_tokens.toLocaleString()} {t('tokens')}
+                                                    {formatUsageCount(displayUsage.inputTokens, displayUsage.usageRecorded)} {t('tokens')}
                                                 </Badge>
                                             </div>
                                             <div className="flex-1 overflow-auto min-h-0">
@@ -449,7 +489,7 @@ export function LogCard({ log }: { log: RelayLog }) {
                                                 <MessageSquare className="size-4 text-purple-500" />
                                                 <span className="text-sm font-medium text-card-foreground">{t('responseContent')}</span>
                                                 <Badge variant="secondary" className="ml-auto text-xs">
-                                                    {log.output_tokens.toLocaleString()} {t('tokens')}
+                                                    {formatUsageCount(displayUsage.outputTokens, displayUsage.usageRecorded)} {t('tokens')}
                                                 </Badge>
                                             </div>
                                             <div className="flex-1 overflow-auto min-h-0">
@@ -480,17 +520,17 @@ export function LogCard({ log }: { log: RelayLog }) {
                             </div>
                             <div className="flex items-center gap-1.5">
                                 <Activity className="size-3.5 text-indigo-500" />
-                                <span>{formatTPS(log.output_tokens, log.use_time)} token/s</span>
+                                <span>{formatUsageTPS(displayUsage.outputTokens, log.use_time, displayUsage.usageRecorded)} token/s</span>
                             </div>
                             <div className="flex items-center gap-1.5">
                                 <DollarSign className="size-3.5 text-primary" />
                                 <span className="font-medium text-primary">
-                                    {t('cost')}: {Number(log.cost).toFixed(6)}
+                                    {t('cost')}: {formatUsageCost(displayUsage.estimatedCost, displayUsage.costRecorded)}
                                 </span>
                             </div>
                             <div className="flex items-center gap-1.5">
                                 <Database className="size-3.5 text-cyan-500" />
-                                <span>{t('cacheHit')}: {formatCacheHitRate(log.cache_hit_tokens, log.input_tokens)}</span>
+                                <span className="whitespace-nowrap">{t('cacheHit')}: {formatCacheHitRate(displayUsage.cacheHitTokens, displayUsage.inputTokens)}</span>
                             </div>
                         </div>
                     </MorphingDialogContent>
