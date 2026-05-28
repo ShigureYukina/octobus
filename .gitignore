@@ -3,3 +3,10 @@ build
 static/out/*
 !static/out/README.md
 .vscode
+.gocache/
+.gomodcache/
+AGENTS.md
+build.bat
+*.exe
+*.test
+*.out

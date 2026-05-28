@@ -36,9 +36,11 @@ type RelayLog struct {
 	Ftut              int              `json:"ftut"`                                     // 首字时间(毫秒)
 	UseTime           int              `json:"use_time"`                                 // 总用时(毫秒)
 	Cost              float64          `json:"cost"`                                     // 消耗费用
+	UsageRecorded     bool             `json:"usage_recorded"`                           // 是否实际记录到了 usage
 	RequestContent    string           `json:"request_content"`                          // 请求内容
 	ResponseContent   string           `json:"response_content"`                         // 响应内容
 	Error             string           `json:"error"`                                    // 错误信息
 	Attempts          []ChannelAttempt `json:"attempts" gorm:"serializer:json"`          // 所有尝试记录
 	TotalAttempts     int              `json:"total_attempts"`                           // 总尝试次数
+	CacheHitTokens    int              `json:"cache_hit_tokens"`                         // 缓存命中Token
 }

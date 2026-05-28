@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 
 export type ToolbarLayout = 'grid' | 'list';
 export type ToolbarSortOrder = 'asc' | 'desc';
-export type ToolbarSortField = 'name' | 'created';
+export type ToolbarSortField = 'name' | 'created' | 'last_used';
 export type ToolbarCreatedSortablePage = 'channel' | 'group';
 export const TOOLBAR_PAGES = ['channel', 'group', 'model'] as const;
 export type ToolbarPage = (typeof TOOLBAR_PAGES)[number];

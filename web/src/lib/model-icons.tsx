@@ -39,6 +39,7 @@ import {
     Gemma,
     Microsoft,
     KwaiKAT,
+    XiaomiMiMo,
 } from '@lobehub/icons';
 
 type AvatarComponent = typeof OpenAI.Avatar;
@@ -115,6 +116,8 @@ const MODEL_ICON_PATTERNS: ModelIconConfig[] = [
     { prefixes: ['perplexity'], Avatar: Perplexity.Avatar, color: '#20B8CD' },
     { prefixes: ['phi-'], Avatar: Microsoft.Avatar, color: '#00BCF2' },
     { prefixes: ['kat'], Avatar: KwaiKAT.Avatar, color: '#1969FC' },
+    // Xiaomi - MiMo series
+    { prefixes: ['mimo', 'xiaomi'], Avatar: XiaomiMiMo.Avatar, color: '#FF6900' },
 ];
 
 // Default configuration

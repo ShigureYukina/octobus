@@ -153,6 +153,7 @@ export function useChannelList() {
                 custom_header: item.custom_header ?? [],
                 keys: item.keys ?? [],
             }) satisfies Channel,
+            last_used_time: Math.max(0, ...(item.keys ?? []).map(k => k.last_use_time_stamp || 0)),
             formatted: {
                 input_token: formatCount(item.stats.input_token),
                 output_token: formatCount(item.stats.output_token),
@@ -165,7 +166,7 @@ export function useChannelList() {
                 request_count: formatCount(item.stats.request_success + item.stats.request_failed),
                 wait_time: formatTime(item.stats.wait_time),
             }
-        })) as Array<{ raw: Channel; formatted: StatsMetricsFormatted }>,
+        })) as Array<{ raw: Channel; last_used_time: number; formatted: StatsMetricsFormatted }>,
         refetchInterval: 30000,
         refetchOnMount: 'always',
     });

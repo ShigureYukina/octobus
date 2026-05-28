@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/bestruirui/octopus/internal/op"
 	"github.com/bestruirui/octopus/internal/server/middleware"
@@ -49,7 +50,13 @@ func getStatsDaily(c *gin.Context) {
 }
 
 func getStatsHourly(c *gin.Context) {
-	resp.Success(c, op.StatsHourlyGet())
+	hours := 24
+	if h := c.Query("hours"); h != "" {
+		if parsed, err := strconv.Atoi(h); err == nil && parsed > 0 && parsed <= 24 {
+			hours = parsed
+		}
+	}
+	resp.Success(c, op.StatsHourlyGet(hours))
 }
 
 func getStatsTotal(c *gin.Context) {

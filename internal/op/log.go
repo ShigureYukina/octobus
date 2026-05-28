@@ -11,6 +11,7 @@ import (
 	"github.com/bestruirui/octopus/internal/model"
 	"github.com/bestruirui/octopus/internal/utils/log"
 	"github.com/bestruirui/octopus/internal/utils/snowflake"
+	"gorm.io/gorm/clause"
 )
 
 const relayLogMaxSize = 20
@@ -18,6 +19,31 @@ const relayLogMaxSizeNoDB = 100 // 当不保存到数据库时，允许更大的
 
 var relayLogCache = make([]model.RelayLog, 0, relayLogMaxSize)
 var relayLogCacheLock sync.Mutex
+
+func logRefreshCache(ctx context.Context) error {
+	enabled, err := SettingGetBool(model.SettingKeyRelayLogKeepEnabled)
+	if err != nil {
+		return err
+	}
+	if !enabled {
+		return nil
+	}
+
+	var recentLogs []model.RelayLog
+	result := db.GetDB().WithContext(ctx).Order("id DESC").Limit(relayLogMaxSize).Find(&recentLogs)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	relayLogCacheLock.Lock()
+	relayLogCache = make([]model.RelayLog, 0, relayLogMaxSize)
+	for i := len(recentLogs) - 1; i >= 0; i-- {
+		relayLogCache = append(relayLogCache, recentLogs[i])
+	}
+	relayLogCacheLock.Unlock()
+
+	return nil
+}
 
 var relayLogFlushLock sync.Mutex
 
@@ -95,7 +121,7 @@ func relayLogFlushToDB(ctx context.Context) error {
 	flushedUpto := len(batch)
 	relayLogCacheLock.Unlock()
 
-	result := db.GetDB().WithContext(ctx).Create(&batch)
+	result := db.GetDB().WithContext(ctx).Clauses(clause.OnConflict{DoNothing: true}).Create(&batch)
 	if result.Error != nil {
 		return result.Error
 	}
@@ -175,6 +201,10 @@ func RelayLogSaveDBTask(ctx context.Context) error {
 	relayLogCacheLock.Unlock()
 
 	return nil
+}
+
+func RelayLogFlushAll(ctx context.Context) error {
+	return relayLogFlushToDB(ctx)
 }
 
 func relayLogCleanup(ctx context.Context) error {

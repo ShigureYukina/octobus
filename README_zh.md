@@ -6,7 +6,7 @@
 
 **为个人打造的简单、美观、优雅的 LLM API 聚合与负载均衡服务**
 
-简体中文 | [English](README.md)
+简体中文 | [English](README_en.md)
 
 </div>
 

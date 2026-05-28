@@ -18,9 +18,16 @@ export function Channel() {
     const sortedChannels = useMemo(() => {
         if (!channelsData) return [];
         return [...channelsData].sort((a, b) => {
-            const diff = sortField === 'name'
-                ? a.raw.name.localeCompare(b.raw.name)
-                : a.raw.id - b.raw.id;
+            if (sortField === 'name') {
+                const diff = a.raw.name.localeCompare(b.raw.name);
+                return sortOrder === 'asc' ? diff : -diff;
+            }
+            if (sortField === 'last_used') {
+                const diff = (a.last_used_time || 0) - (b.last_used_time || 0);
+                return sortOrder === 'asc' ? diff : -diff;
+            }
+            // created
+            const diff = a.raw.id - b.raw.id;
             return sortOrder === 'asc' ? diff : -diff;
         });
     }, [channelsData, sortField, sortOrder]);

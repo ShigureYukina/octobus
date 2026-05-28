@@ -321,8 +321,28 @@ func StatsTotalGet() model.StatsTotal {
 
 func StatsTodayGet() model.StatsDaily {
 	statsDailyCacheLock.RLock()
-	defer statsDailyCacheLock.RUnlock()
-	return statsDailyCache
+	dailySnap := statsDailyCache
+	statsDailyCacheLock.RUnlock()
+	
+	// 使用小时数据聚合近24小时
+	hourlyStats := StatsHourlyGet(24)
+	var result model.StatsDaily
+	result.Date = time.Now().Format("20060102")
+	
+	hasHourlyData := false
+	for _, h := range hourlyStats {
+		if h.StatsMetrics.RequestSuccess > 0 || h.StatsMetrics.RequestFailed > 0 {
+			hasHourlyData = true
+		}
+		result.StatsMetrics.Add(h.StatsMetrics)
+	}
+	
+	// 如果小时数据为空（重启后），回退到日数据
+	if !hasHourlyData {
+		return dailySnap
+	}
+	
+	return result
 }
 
 func StatsChannelGet(id int) model.StatsChannel {
@@ -363,23 +383,29 @@ func StatsAPIKeyList() []model.StatsAPIKey {
 	return apiKeys
 }
 
-func StatsHourlyGet() []model.StatsHourly {
+func StatsHourlyGet(hours int) []model.StatsHourly {
 	now := time.Now()
-	currentHour := now.Hour()
-	todayDate := time.Now().Format("20060102")
+
+	if hours <= 0 || hours > 24 {
+		hours = 24
+	}
 
 	statsHourlyCacheLock.RLock()
 	defer statsHourlyCacheLock.RUnlock()
 
-	result := make([]model.StatsHourly, 0, currentHour+1)
+	result := make([]model.StatsHourly, 0, hours)
 
-	for hour := 0; hour <= currentHour; hour++ {
-		if statsHourlyCache[hour].Date == todayDate {
+	for i := hours - 1; i >= 0; i-- {
+		hourTime := now.Add(-time.Duration(i) * time.Hour)
+		hour := hourTime.Hour()
+		hourDate := hourTime.Format("20060102")
+
+		if statsHourlyCache[hour].Date == hourDate {
 			result = append(result, statsHourlyCache[hour])
 		} else {
 			result = append(result, model.StatsHourly{
 				Hour: hour,
-				Date: todayDate,
+				Date: hourDate,
 			})
 		}
 	}

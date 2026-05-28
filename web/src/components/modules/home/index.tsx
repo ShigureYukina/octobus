@@ -1,10 +1,23 @@
 'use client';
 
-import { Activity } from './activity';
+import dynamic from 'next/dynamic';
 import { Total } from './total';
-import { StatsChart } from './chart';
-import { Rank } from './rank';
 import { PageWrapper } from '@/components/common/PageWrapper';
+
+const Activity = dynamic(() => import('./activity').then(mod => ({ default: mod.Activity })), {
+    ssr: false,
+    loading: () => <div className="rounded-3xl bg-card border-card-border border h-[120px] animate-pulse" />,
+});
+
+const StatsChart = dynamic(() => import('./chart').then(mod => ({ default: mod.StatsChart })), {
+    ssr: false,
+    loading: () => <div className="rounded-3xl bg-card border-card-border border h-[300px] animate-pulse" />,
+});
+
+const Rank = dynamic(() => import('./rank').then(mod => ({ default: mod.Rank })), {
+    ssr: false,
+    loading: () => <div className="rounded-3xl bg-card border-card-border border h-[400px] animate-pulse" />,
+});
 
 export function Home() {
     return (

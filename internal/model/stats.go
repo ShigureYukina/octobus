@@ -8,6 +8,7 @@ type StatsMetrics struct {
 	WaitTime       int64   `json:"wait_time" gorm:"bigint"`
 	RequestSuccess int64   `json:"request_success" gorm:"bigint"`
 	RequestFailed  int64   `json:"request_failed" gorm:"bigint"`
+	CacheHitToken  int64   `json:"cache_hit_token" gorm:"bigint"`
 }
 
 type StatsTotal struct {
@@ -52,4 +53,5 @@ func (s *StatsMetrics) Add(delta StatsMetrics) {
 	s.WaitTime += delta.WaitTime
 	s.RequestSuccess += delta.RequestSuccess
 	s.RequestFailed += delta.RequestFailed
+	s.CacheHitToken += delta.CacheHitToken
 }

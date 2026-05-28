@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowUpAZ, Clock3, LayoutGrid, List, Plus, Search, SlidersHorizontal, X } from 'lucide-react';
+import { ArrowUpAZ, Clock3, LayoutGrid, List, Plus, Search, SlidersHorizontal, X, History } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
     MorphingDialog,
@@ -43,6 +43,8 @@ const COMBINED_SORT_OPTIONS: readonly CombinedSortOption[] = [
     { value: 'name-desc', field: 'name', order: 'desc', labelKey: 'popover.nameDesc' },
     { value: 'created-asc', field: 'created', order: 'asc', labelKey: 'popover.createdAsc' },
     { value: 'created-desc', field: 'created', order: 'desc', labelKey: 'popover.createdDesc' },
+    { value: 'last_used-asc', field: 'last_used', order: 'asc', labelKey: 'popover.lastUsedAsc' },
+    { value: 'last_used-desc', field: 'last_used', order: 'desc', labelKey: 'popover.lastUsedDesc' },
 ] as const;
 
 function isToolbarPage(item: NavItem): item is ToolbarPage {
@@ -260,7 +262,7 @@ export function Toolbar() {
                                                         : 'border-border bg-muted/20 text-foreground hover:bg-muted/30'
                                                 )}
                                             >
-                                                {option.field === 'name' ? <ArrowUpAZ className="size-3.5" /> : <Clock3 className="size-3.5" />}
+                                                {option.field === 'name' ? <ArrowUpAZ className="size-3.5" /> : option.field === 'last_used' ? <History className="size-3.5" /> : <Clock3 className="size-3.5" />}
                                                 {t(option.labelKey)}
                                             </button>
                                         ))}

@@ -4,9 +4,10 @@ import { animate } from 'motion/react';
 interface AnimatedNumberProps {
     value: string | number | undefined;
     duration?: number;
+    animateValue?: boolean;
 }
 
-export function AnimatedNumber({ value, duration = 800 }: AnimatedNumberProps) {
+export function AnimatedNumber({ value, duration = 800, animateValue = true }: AnimatedNumberProps) {
     const [displayValue, setDisplayValue] = useState(0);
     const prevValueRef = useRef(0);
 
@@ -24,6 +25,12 @@ export function AnimatedNumber({ value, duration = 800 }: AnimatedNumberProps) {
             return;
         }
 
+        if (!animateValue) {
+            setDisplayValue(numericValue);
+            prevValueRef.current = numericValue;
+            return;
+        }
+
         const controls = animate(prevValueRef.current, numericValue, {
             duration: duration / 1000, // motion/react uses seconds
             ease: 'easeOut',
@@ -34,7 +41,7 @@ export function AnimatedNumber({ value, duration = 800 }: AnimatedNumberProps) {
         });
 
         return () => controls.stop();
-    }, [value, duration]);
+    }, [value, duration, animateValue]);
 
     if (value === undefined || value === null) {
         return <span>-</span>;

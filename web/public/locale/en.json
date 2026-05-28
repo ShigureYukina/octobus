@@ -63,6 +63,8 @@
             "nameDesc": "Name Desc",
             "createdAsc": "Time Asc",
             "createdDesc": "Time Desc",
+            "lastUsedAsc": "Last Used Asc",
+            "lastUsedDesc": "Last Used Desc",
             "asc": "Asc",
             "desc": "Desc",
             "filter": {
@@ -107,6 +109,7 @@
             "outputStats": "Output Stats",
             "requestCount": "Requests",
             "timeConsumed": "Time Consumed",
+            "cacheHitRate": "Cache Hit Rate",
             "totalToken": "Tokens Used",
             "totalCost": "Total Cost",
             "inputTokens": "Input Tokens",
@@ -119,6 +122,7 @@
             "totalRequests": "Total Requests",
             "totalCost": "Total Cost",
             "totalTokens": "Total Tokens",
+            "cacheHitRate": "Cache Hit Rate",
             "timePeriod": "Time Period",
             "metricType": {
                 "cost": "Cost",
@@ -126,7 +130,9 @@
                 "tokens": "Tokens"
             },
             "period": {
-                "today": "Today",
+                "last6Hours": "6 Hours",
+                "last12Hours": "12 Hours",
+                "last24Hours": "24 Hours",
                 "last7Days": "7 Days",
                 "last30Days": "30 Days"
             }
@@ -148,6 +154,25 @@
             "light": "Light",
             "dark": "Dark",
             "system": "System"
+        },
+        "themeColor": {
+            "title": "Theme Color",
+            "preset": "Preset Themes",
+            "custom": "Custom Colors",
+            "background": "Background",
+            "pageBackground": "Page Background",
+            "cardBackground": "Card Background",
+            "sidebarBackground": "Sidebar Background",
+            "accentColors": "Accent Colors",
+            "primary": "Primary",
+            "accent": "Accent",
+            "ring": "Ring",
+            "chartColors": "Chart Colors",
+            "chart": "Chart",
+            "sidebarColors": "Sidebar Colors",
+            "sidebarPrimary": "Sidebar Primary",
+            "sidebarAccent": "Sidebar Accent",
+            "reset": "Reset to Default"
         },
         "language": {
             "label": "Language",
@@ -428,6 +453,11 @@
         "list": {
             "noMore": "No more logs"
         },
+        "stats": {
+            "avgFtut": "Avg TTFT",
+            "tps": "TPS",
+            "cacheHitRate": "Cache Hit Rate"
+        },
         "card": {
             "error": "Error",
             "errorInfo": "Error Info",
@@ -436,6 +466,7 @@
             "input": "Input",
             "output": "Output",
             "cost": "Cost",
+            "cacheHit": "Cache Hit",
             "requestContent": "Request Content",
             "responseContent": "Response Content",
             "noRequestContent": "(No request content)",
@@ -445,7 +476,8 @@
             "retryDetails": "Retry Details",
             "attempts": "attempts",
             "success": "Success",
-            "failed": "Failed"
+            "failed": "Failed",
+            "tps": "T/s"
         }
     },
     "channel": {

@@ -13,6 +13,7 @@ interface StatsMetrics {
     wait_time: number;
     request_success: number;
     request_failed: number;
+    cache_hit_token: number;
 }
 
 export interface StatsMetricsFormatted {
@@ -23,6 +24,8 @@ export interface StatsMetricsFormatted {
     wait_time: ReturnType<typeof formatTime>;
     request_success: ReturnType<typeof formatCount>;
     request_failed: ReturnType<typeof formatCount>;
+    cache_hit_token: ReturnType<typeof formatCount>;
+    cache_hit_rate: string;
 
     request_count: ReturnType<typeof formatCount>;
     total_token: ReturnType<typeof formatCount>;
@@ -64,7 +67,7 @@ export interface StatsAPIKeyFormatted extends StatsMetricsFormatted {
     api_key_id: number;
 }
 /**
- * 获取今日统计数据 Hook
+ * 获取近24小时统计数据 Hook
  */
 export function useStatsToday() {
     return useQuery({
@@ -97,6 +100,8 @@ export function useStatsDaily() {
             request_success: formatCount(item.request_success),
             request_failed: formatCount(item.request_failed),
             request_count: formatCount(item.request_success + item.request_failed),
+            cache_hit_token: formatCount(item.cache_hit_token || 0),
+            cache_hit_rate: item.input_token > 0 ? `${(((item.cache_hit_token || 0) / item.input_token) * 100).toFixed(1)}%` : '0%',
             date: item.date,
         })),
         refetchInterval: 3600000, // 1 小时
@@ -106,11 +111,11 @@ export function useStatsDaily() {
 /**
  * 获取总统计数据 Hook
  */
-export function useStatsHourly() {
+export function useStatsHourly(hours: number = 24) {
     return useQuery({
-        queryKey: ['stats', 'hourly'],
+        queryKey: ['stats', 'hourly', hours],
         queryFn: async () => {
-            return apiClient.get<StatsHourly[]>('/api/v1/stats/hourly');
+            return apiClient.get<StatsHourly[]>('/api/v1/stats/hourly', { hours });
         },
         select: (data) => data.map((item): StatsHourlyFormatted => ({
             hour: item.hour,
@@ -125,6 +130,8 @@ export function useStatsHourly() {
             request_success: formatCount(item.request_success),
             request_failed: formatCount(item.request_failed),
             request_count: formatCount(item.request_success + item.request_failed),
+            cache_hit_token: formatCount(item.cache_hit_token || 0),
+            cache_hit_rate: item.input_token > 0 ? `${(((item.cache_hit_token || 0) / item.input_token) * 100).toFixed(1)}%` : '0%',
         })),
         refetchInterval: 10000,// 10 秒
         refetchOnMount: 'always',
@@ -148,6 +155,8 @@ export function useStatsTotal() {
             request_success: formatCount(data.request_success),
             request_failed: formatCount(data.request_failed),
             request_count: formatCount(data.request_success + data.request_failed),
+            cache_hit_token: formatCount(data.cache_hit_token || 0),
+            cache_hit_rate: data.input_token > 0 ? `${(((data.cache_hit_token || 0) / data.input_token) * 100).toFixed(1)}%` : '0%',
         }),
         refetchInterval: 10000,// 10 秒
         refetchOnMount: 'always',
@@ -177,6 +186,8 @@ export function useStatsAPIKey() {
             request_success: formatCount(item.request_success),
             request_failed: formatCount(item.request_failed),
             request_count: formatCount(item.request_success + item.request_failed),
+            cache_hit_token: formatCount(item.cache_hit_token || 0),
+            cache_hit_rate: (item.cache_hit_token || 0) > 0 ? `${(((item.cache_hit_token || 0) / item.input_token) * 100).toFixed(1)}%` : '-',
         })),
         refetchInterval: 30000,
         refetchOnMount: 'always',

@@ -7,9 +7,9 @@ interface LogoProps {
     animate?: boolean;
 }
 
-const LOGO_DRAW_DURATION_S = 0.8;
-const LOGO_STAGGER_S = 0.15;
-const LOGO_FADE_DURATION_S = 0.6;
+const LOGO_DRAW_DURATION_S = 0.4;
+const LOGO_STAGGER_S = 0.08;
+const LOGO_FADE_DURATION_S = 0.3;
 
 const paths = [
     "M50 15 C70 15 85 30 85 50 C85 65 75 75 70 80 M50 15 C30 15 15 30 15 50 C15 65 25 75 30 80",

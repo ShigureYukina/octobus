@@ -29,6 +29,7 @@ type RelayMetrics struct {
 	// 统计指标
 	ActualModel string
 	Stats       model.StatsMetrics
+	HasUsage    bool
 
 	// 参数覆盖
 	ParamOverride string
@@ -40,8 +41,14 @@ func (m *RelayMetrics) RecordUsage(usage *llm.Usage) {
 	}
 
 	// usage 已由 axonhub/llm 标准化；octopus 仍使用本地模型价格表计算成本，所以这里只做用量落点和价格换算。
+	m.HasUsage = true
 	m.Stats.InputToken = usage.PromptTokens
 	m.Stats.OutputToken = usage.CompletionTokens
+
+	// 提取缓存命中 token
+	if usage.PromptTokensDetails != nil {
+		m.Stats.CacheHitToken = usage.PromptTokensDetails.CachedTokens
+	}
 
 	modelPrice := price.GetLLMPrice(m.ActualModel)
 	if modelPrice == nil {
@@ -66,11 +73,12 @@ func (m *RelayMetrics) Save(ctx context.Context, success bool, err error, attemp
 	duration := time.Since(m.StartTime)
 
 	globalStats := model.StatsMetrics{
-		WaitTime:    duration.Milliseconds(),
-		InputToken:  m.Stats.InputToken,
-		OutputToken: m.Stats.OutputToken,
-		InputCost:   m.Stats.InputCost,
-		OutputCost:  m.Stats.OutputCost,
+		WaitTime:      duration.Milliseconds(),
+		InputToken:    m.Stats.InputToken,
+		OutputToken:   m.Stats.OutputToken,
+		InputCost:     m.Stats.InputCost,
+		OutputCost:    m.Stats.OutputCost,
+		CacheHitToken: m.Stats.CacheHitToken,
 	}
 	if success {
 		globalStats.RequestSuccess = 1
@@ -129,6 +137,7 @@ func (m *RelayMetrics) saveLog(ctx context.Context, err error, duration time.Dur
 		UseTime:          int(duration.Milliseconds()),
 		Attempts:         attempts,
 		TotalAttempts:    len(attempts),
+		UsageRecorded:    m.HasUsage,
 	}
 
 	if apiKey, getErr := op.APIKeyGet(m.APIKeyID, ctx); getErr == nil {
@@ -145,6 +154,7 @@ func (m *RelayMetrics) saveLog(ctx context.Context, err error, duration time.Dur
 		relayLog.InputTokens = int(m.Stats.InputToken)
 		relayLog.OutputTokens = int(m.Stats.OutputToken)
 		relayLog.Cost = m.Stats.InputCost + m.Stats.OutputCost
+		relayLog.CacheHitTokens = int(m.Stats.CacheHitToken)
 	}
 
 	relayLog.RequestContent = m.requestContent()

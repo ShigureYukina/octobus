@@ -9,7 +9,7 @@ import { APIKeyDashboard } from '@/components/modules/apikey-dashboard';
 import { ContentLoader } from '@/route/content-loader';
 import { NavBar, useNavStore } from '@/components/modules/navbar';
 import { useTranslations } from 'next-intl'
-import Logo, { LOGO_DRAW_END_MS } from '@/components/modules/logo';
+import Logo from '@/components/modules/logo';
 import { Toolbar } from '@/components/modules/toolbar';
 import { ENTRANCE_VARIANTS } from '@/lib/animations/fluid-transitions';
 import { useQueryClient } from '@tanstack/react-query';
@@ -28,24 +28,19 @@ export function AppContainer() {
     const queryClient = useQueryClient();
 
     // Logo 动画完成状态
-    const [logoAnimationComplete, setLogoAnimationComplete] = useState(false);
     const [bootstrapComplete, setBootstrapComplete] = useState(false);
     const bootstrapStartedRef = useRef(false);
 
-    // 首屏最早的 server-rendered loader：一旦客户端开始渲染，就淡出移除
-    useEffect(() => {
-        const el = document.getElementById('initial-loader');
-        if (!el) return;
+    // Logo 加载动画已禁用 - 移除 initial-loader 的逻辑不再需要
+    // // 首屏最早的 server-rendered loader：一旦客户端开始渲染，就淡出移除
+    // useEffect(() => {
+    //     const el = document.getElementById('initial-loader');
+    //     if (!el) return;
 
-        el.classList.add('octo-hide');
-        const timer = setTimeout(() => el.remove(), 220);
-        return () => clearTimeout(timer);
-    }, []);
-
-    useEffect(() => {
-        const timer = setTimeout(() => setLogoAnimationComplete(true), LOGO_DRAW_END_MS);
-        return () => clearTimeout(timer);
-    }, []);
+    //     el.classList.add('octo-hide');
+    //     const timer = setTimeout(() => el.remove(), 150);
+    //     return () => clearTimeout(timer);
+    // }, []);
 
     useEffect(() => {
         if (authLoading) return;
@@ -173,16 +168,18 @@ export function AppContainer() {
     // 加载状态
     const isLoading =
         authLoading ||
-        !logoAnimationComplete ||
         (isAuthenticated && !bootstrapComplete);
 
-    // 加载页面
+    // Logo 加载动画已禁用 - 加载状态下返回空内容
+    // if (isLoading) {
+    //     return (
+    //         <div className="min-h-screen flex items-center justify-center bg-background">
+    //             <Logo size={120} animate />
+    //         </div>
+    //     );
+    // }
     if (isLoading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-background">
-                <Logo size={120} animate />
-            </div>
-        );
+        return null;
     }
 
     // API Key 认证模式 - 显示 API Key Dashboard
@@ -209,7 +206,7 @@ export function AppContainer() {
             key="main-app"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.18 }}
             className="mx-auto flex h-dvh max-w-6xl flex-col overflow-hidden px-3 md:grid md:grid-cols-[auto_1fr] md:gap-6 md:px-6"
         >
             <NavBar />
@@ -222,23 +219,23 @@ export function AppContainer() {
                                 key={activeItem}
                                 custom={direction}
                                 variants={{
-                                    initial: (direction: number) => ({
-                                        y: 32 * direction,
+                                    initial: {
+                                        y: 32,
                                         opacity: 0
-                                    }),
+                                    },
                                     animate: {
                                         y: 0,
                                         opacity: 1
                                     },
-                                    exit: (direction: number) => ({
-                                        y: -32 * direction,
+                                    exit: {
+                                        y: -32,
                                         opacity: 0
-                                    })
+                                    }
                                 }}
                                 initial="initial"
                                 animate="animate"
                                 exit="exit"
-                                transition={{ duration: 0.3 }}
+                                transition={{ duration: 0.2 }}
                                 className="flex items-center"
                             >
                                 <span className="text-3xl font-bold mt-1">{t(activeItem)}</span>
@@ -257,9 +254,9 @@ export function AppContainer() {
                         animate="animate"
                         exit={{
                             opacity: 0,
-                            scale: 0.98,
+                            y: -28,
                         }}
-                        transition={{ duration: 0.25 }}
+                        transition={{ duration: 0.18, ease: 'easeOut' }}
                         className="h-full min-h-0 flex-1"
                     >
                         <ContentLoader activeRoute={activeItem} />

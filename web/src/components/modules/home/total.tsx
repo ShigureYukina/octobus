@@ -4,14 +4,14 @@ import { motion } from 'motion/react';
 import {
     Activity,
     MessageSquare,
-    Clock,
     ArrowDownToLine,
     ChartColumnBig,
     Bot,
     ArrowUpFromLine,
     Rewind,
     DollarSign,
-    FastForward
+    FastForward,
+    Database
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useStatsTotal } from '@/api/endpoints/stats';
@@ -32,17 +32,17 @@ export function Total() {
                     label: t('requestCount'),
                     value: statsTotalFormatted?.request_count.formatted.value,
                     icon: MessageSquare,
-                    color: 'text-primary',
-                    bgColor: 'bg-primary/10',
+                    color: 'text-blue-500',
+                    bgColor: 'bg-blue-500/10',
                     unit: statsTotalFormatted?.request_count.formatted.unit
                 },
                 {
-                    label: t('timeConsumed'),
-                    value: statsTotalFormatted?.wait_time.formatted.value,
-                    icon: Clock,
-                    color: 'text-primary',
-                    bgColor: 'bg-accent/10',
-                    unit: statsTotalFormatted?.wait_time.formatted.unit
+                    label: t('cacheHitRate'),
+                    value: statsTotalFormatted?.cache_hit_rate,
+                    icon: Database,
+                    color: 'text-cyan-500',
+                    bgColor: 'bg-cyan-500/10',
+                    unit: '%'
                 }
             ]
         },
@@ -54,16 +54,16 @@ export function Total() {
                     label: t('totalToken'),
                     value: statsTotalFormatted?.total_token.formatted.value,
                     icon: Bot,
-                    color: 'text-primary',
-                    bgColor: 'bg-chart-1/10',
+                    color: 'text-violet-500',
+                    bgColor: 'bg-violet-500/10',
                     unit: statsTotalFormatted?.total_token.formatted.unit
                 },
                 {
                     label: t('totalCost'),
                     value: statsTotalFormatted?.total_cost.formatted.value,
                     icon: DollarSign,
-                    color: 'text-primary',
-                    bgColor: 'bg-chart-2/10',
+                    color: 'text-amber-500',
+                    bgColor: 'bg-amber-500/10',
                     unit: statsTotalFormatted?.total_cost.formatted.unit
                 }
             ]
@@ -77,7 +77,7 @@ export function Total() {
                     value: statsTotalFormatted?.input_token.formatted.value,
                     icon: Rewind,
                     color: 'text-primary',
-                    bgColor: 'bg-chart-3/10',
+                    bgColor: 'bg-primary/10',
                     unit: statsTotalFormatted?.input_token.formatted.unit
                 },
                 {
@@ -85,7 +85,7 @@ export function Total() {
                     value: statsTotalFormatted?.input_cost.formatted.value,
                     icon: DollarSign,
                     color: 'text-primary',
-                    bgColor: 'bg-chart-3/10',
+                    bgColor: 'bg-primary/10',
                     unit: statsTotalFormatted?.input_cost.formatted.unit
                 }
             ]
@@ -98,16 +98,16 @@ export function Total() {
                     label: t('outputTokens'),
                     value: statsTotalFormatted?.output_token.formatted.value,
                     icon: FastForward,
-                    color: 'text-primary',
-                    bgColor: 'bg-chart-4/10',
+                    color: 'text-orange-500',
+                    bgColor: 'bg-orange-500/10',
                     unit: statsTotalFormatted?.output_token.formatted.unit
                 },
                 {
                     label: t('outputCost'),
                     value: statsTotalFormatted?.output_cost.formatted.value,
                     icon: DollarSign,
-                    color: 'text-primary',
-                    bgColor: 'bg-chart-4/10',
+                    color: 'text-orange-500',
+                    bgColor: 'bg-orange-500/10',
                     unit: statsTotalFormatted?.output_cost.formatted.unit
                 }
             ]

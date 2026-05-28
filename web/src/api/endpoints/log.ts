@@ -45,6 +45,7 @@ export interface RelayLog {
     error: string;               // 错误信息
     attempts?: ChannelAttempt[]; // 所有尝试记录
     total_attempts?: number;     // 总尝试次数
+    cache_hit_tokens?: number;   // 缓存命中Token
 }
 
 /**

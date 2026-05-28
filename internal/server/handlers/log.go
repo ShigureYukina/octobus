@@ -34,6 +34,12 @@ func init() {
 			router.NewRoute("/stream", http.MethodGet).
 				Handle(streamLog),
 		)
+
+	router.NewGroupRouter("/api/internal").
+		AddRoute(
+			router.NewRoute("/flush", http.MethodPost).
+				Handle(flushCache),
+		)
 }
 
 func listLog(c *gin.Context) {
@@ -76,6 +82,23 @@ func listLog(c *gin.Context) {
 
 func clearLog(c *gin.Context) {
 	if err := op.RelayLogClear(c.Request.Context()); err != nil {
+		resp.Error(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	resp.Success(c, nil)
+}
+
+func flushCache(c *gin.Context) {
+	ctx := c.Request.Context()
+	if err := op.StatsSaveDB(ctx); err != nil {
+		resp.Error(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	if err := op.ChannelKeySaveDB(ctx); err != nil {
+		resp.Error(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	if err := op.RelayLogFlushAll(ctx); err != nil {
 		resp.Error(c, http.StatusInternalServerError, err.Error())
 		return
 	}

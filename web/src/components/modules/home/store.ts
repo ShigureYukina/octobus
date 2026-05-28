@@ -5,7 +5,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 
 export type RankSortMode = 'cost' | 'count' | 'tokens';
 export type ChartMetricType = 'cost' | 'count' | 'tokens';
-export type ChartPeriod = '1' | '7' | '30';
+export type ChartPeriod = '6' | '12' | '24' | '7' | '30';
 
 interface HomeViewState {
     rankSortMode: RankSortMode;
@@ -21,7 +21,7 @@ export const useHomeViewStore = create<HomeViewState>()(
         (set) => ({
             rankSortMode: 'cost',
             chartMetricType: 'cost',
-            chartPeriod: '1',
+            chartPeriod: '12',
             setRankSortMode: (value) => set({ rankSortMode: value }),
             setChartMetricType: (value) => set({ chartMetricType: value }),
             setChartPeriod: (value) => set({ chartPeriod: value }),

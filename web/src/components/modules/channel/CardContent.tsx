@@ -330,7 +330,7 @@ export function CardContent({ channel, stats }: { channel: Channel; stats: Stats
                                                     className={cn(
                                                         "h-5 px-1.5 text-xs",
                                                         url.delay < 300
-                                                            ? "bg-green-500/15 text-green-700 dark:text-green-400"
+                                                            ? "bg-primary/15 text-primary"
                                                             : url.delay < 1000
                                                                 ? "bg-orange-500/15 text-orange-700 dark:text-orange-400"
                                                                 : "bg-red-500/15 text-red-700 dark:text-red-400"
@@ -355,7 +355,7 @@ export function CardContent({ channel, stats }: { channel: Channel; stats: Stats
                                     <div className="rounded-2xl border bg-card overflow-hidden">
                                         {channel.keys?.map((key) => (
                                             <div key={key.id} className="flex items-center gap-3 p-3 sm:p-4 border-b last:border-0 hover:bg-accent/5 transition-colors">
-                                                <div className={cn("size-2 shrink-0 rounded-full", key.enabled ? "bg-emerald-500" : "bg-destructive")} />
+                                                <div className={cn("size-2 shrink-0 rounded-full", key.enabled ? "bg-primary" : "bg-destructive")} />
 
                                                 <span className="font-mono text-sm truncate min-w-0 flex-1">
                                                     {key.channel_key.length > 10
@@ -382,7 +382,7 @@ export function CardContent({ channel, stats }: { channel: Channel; stats: Stats
                                                             className={cn(
                                                                 "h-5 px-1.5 text-[10px]",
                                                                 key.status_code === 200
-                                                                    ? "bg-green-500/15 text-green-700 dark:text-green-400"
+                                                                    ? "bg-primary/15 text-primary"
                                                                     : key.status_code === 401 ||
                                                                         key.status_code === 403 ||
                                                                         key.status_code === 429 ||
