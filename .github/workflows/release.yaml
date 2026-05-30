@@ -24,6 +24,10 @@ jobs:
         with:
           go-version: 'stable'
 
+      - name: Configure Go module proxy
+        run: |
+          go env -w GOPROXY=https://goproxy.cn,https://proxy.golang.org,direct
+
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
