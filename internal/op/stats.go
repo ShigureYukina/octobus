@@ -367,23 +367,30 @@ func StatsAPIKeyList() []model.StatsAPIKey {
 	return apiKeys
 }
 
-func StatsHourlyGet() []model.StatsHourly {
+func StatsHourlyGet(hours int) []model.StatsHourly {
 	now := time.Now()
-	currentHour := now.Hour()
-	todayDate := time.Now().Format("20060102")
+
+	if hours <= 0 || hours > 24 {
+		hours = 24
+	}
 
 	statsHourlyCacheLock.RLock()
 	defer statsHourlyCacheLock.RUnlock()
 
-	result := make([]model.StatsHourly, 0, currentHour+1)
+	result := make([]model.StatsHourly, 0, hours)
 
-	for hour := 0; hour <= currentHour; hour++ {
-		if statsHourlyCache[hour].Date == todayDate {
+	// 从当前小时向前取 hours 个整点，跨零点时按日期区分同一小时槽位。
+	for i := hours - 1; i >= 0; i-- {
+		hourTime := now.Add(-time.Duration(i) * time.Hour)
+		hour := hourTime.Hour()
+		hourDate := hourTime.Format("20060102")
+
+		if statsHourlyCache[hour].Date == hourDate {
 			result = append(result, statsHourlyCache[hour])
 		} else {
 			result = append(result, model.StatsHourly{
 				Hour: hour,
-				Date: todayDate,
+				Date: hourDate,
 			})
 		}
 	}

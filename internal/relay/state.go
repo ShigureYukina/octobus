@@ -305,14 +305,16 @@ func usageMetrics(modelName string, usage *llm.Usage) model.StatsMetrics {
 		return model.StatsMetrics{}
 	}
 	metrics := model.StatsMetrics{InputToken: usage.PromptTokens, OutputToken: usage.CompletionTokens}
-	price, err := op.LLMGet(modelName)
-	if err != nil {
-		return metrics
-	}
 	cachedTokens, writeCachedTokens := int64(0), int64(0)
 	if usage.PromptTokensDetails != nil {
 		cachedTokens = usage.PromptTokensDetails.CachedTokens
 		writeCachedTokens = usage.PromptTokensDetails.WriteCachedTokens
+	}
+	// 缓存命中量即使查不到价格也要记录，界面据此展示命中率。
+	metrics.CacheHitToken = cachedTokens
+	price, err := op.LLMGet(modelName)
+	if err != nil {
+		return metrics
 	}
 	inputTokens := max(int64(0), usage.PromptTokens-cachedTokens-writeCachedTokens)
 	metrics.InputCost = (float64(inputTokens)*price.Input + float64(cachedTokens)*price.CacheRead + float64(writeCachedTokens)*price.CacheWrite) / 1_000_000
