@@ -1,0 +1,11 @@
+{"file":".trellis/spec/guides/index.md","reason":"共享的 Trellis 工作流、规划与执行约束，供后续子代理统一遵循。"}
+{"file":".trellis/spec/backend/index.md","reason":"后端通用约定索引，用于约束接口、分层和后端实现边界。"}
+{"file":".trellis/spec/java/index.md","reason":"Java 侧约定索引，用于约束 Java backend 的实现风格与边界。"}
+{"file":".trellis/tasks/06-01-java-mvp-gap-fill/prd.md","reason":"parent task 的总目标、范围边界、out-of-scope 与子任务映射。"}
+{"file":".trellis/tasks/06-01-java-mvp-gap-fill/design.md","reason":"跨子任务的总体设计与范围限制，避免子任务各自发散。"}
+{"file":".trellis/tasks/06-01-java-mvp-gap-fill/implement.md","reason":"总体执行顺序、阶段拆分与 parent/child 路由说明。"}
+{"file":".trellis/tasks/06-01-06-01-java-task-cache-flush/prd.md","reason":"后台任务与缓存刷盘子任务的交付边界。"}
+{"file":".trellis/tasks/06-01-06-01-java-streaming-relay/prd.md","reason":"Streaming 子任务范围，仅覆盖 chat completions 的 SSE MVP。"}
+{"file":".trellis/tasks/06-01-06-01-java-anthropic-messages/prd.md","reason":"Anthropic 子任务范围，仅覆盖非流式 text-only MVP。"}
+{"file":".trellis/tasks/06-01-06-01-java-model-crud-models/prd.md","reason":"Model CRUD 与公共模型列表子任务的需求边界。"}
+{"file":".trellis/tasks/06-01-06-01-java-channel-model-sync/prd.md","reason":"Channel 模型拉取与同步子任务的交付边界。"}

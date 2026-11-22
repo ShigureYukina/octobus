@@ -1,0 +1,15 @@
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/prd.md", "reason": "Parent milestone PRD: M3 scope, non-streaming-only constraint, acceptance criteria"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/design.md", "reason": "Parent design: T2 child-task design, unified model decision, adapter matrix, package boundaries"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/implement.md", "reason": "Parent execution plan: T2 intent, artifacts, validation gate, rollback point"}
+{"file": ".trellis/tasks/06-01-java-relay-adapter-spi/prd.md", "reason": "Task PRD: exact T2 requirements and acceptance criteria"}
+{"file": ".trellis/spec/java/relay-protocol-adapter.md", "reason": "Primary protocol spec: required inbound/outbound formats and normalize-then-dispatch rule"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Architecture constraints: keep provider HTTP and streaming logic out of domain, preserve relay package boundary"}
+{"file": ".trellis/spec/java/api-contract.md", "reason": "Route inventory and public relay endpoint compatibility expectations"}
+{"file": "internal/relay/transformers.go", "reason": "Go reference: inbound/outbound transformer factory mapping and supported matrix"}
+{"file": "internal/relay/relay.go", "reason": "Go reference: how parsed inbound request feeds relayRun and later outbound dispatch"}
+{"file": "internal/server/server.go", "reason": "Go route registration reference for inbound format mapping to relay handlers"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/relay/RelayInboundFormat.java", "reason": "Existing Java inbound format enum introduced in T1; registry must align with it"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/relay/RelayHandler.java", "reason": "Current relay entrypoint: understand how SPI will be consumed by handler/run later"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/relay/RelayRun.java", "reason": "Current relay run skeleton: target integration point for unified request/response models"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/common/ApiResponse.java", "reason": "Shared response envelope expected across relay failures and guarded unsupported paths"}
+{"file": "java/pom.xml", "reason": "Dependency boundary: verify no new library is required for pure SPI/model work"}

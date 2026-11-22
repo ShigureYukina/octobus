@@ -1,0 +1,5 @@
+{"file": ".trellis/spec/java/index.md", "reason": "Verify child planning still aligns with Java rewrite scope"}
+{"file": ".trellis/spec/java/roadmap.md", "reason": "Verify Milestone 2 boundaries and exit criteria"}
+{"file": ".trellis/spec/java/api-contract.md", "reason": "Verify admin API contracts before implementation"}
+{"file": ".trellis/spec/java/security-auth.md", "reason": "Verify auth flow rules"}
+{"file": ".trellis/spec/java/database-persistence.md", "reason": "Verify entity and migration rules"}

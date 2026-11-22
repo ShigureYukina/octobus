@@ -1,0 +1,6 @@
+{"file": ".trellis/spec/java/index.md", "reason": "Java rewrite spec entry point and scope map"}
+{"file": ".trellis/spec/java/roadmap.md", "reason": "Milestone sequencing, deliverables, and Milestone 1 task mapping"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Java package boundaries for the scaffold"}
+{"file": ".trellis/spec/java/security-auth.md", "reason": "Security baseline constraints for Milestone 1"}
+{"file": ".trellis/spec/java/database-persistence.md", "reason": "Persistence baseline and migration rules"}
+{"file": ".trellis/spec/java/configuration.md", "reason": "Config and startup validation rules"}

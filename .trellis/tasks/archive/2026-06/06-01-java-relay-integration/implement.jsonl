@@ -1,0 +1,10 @@
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/prd.md", "reason": "Parent milestone PRD: final acceptance criteria that integration tests must prove"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/design.md", "reason": "Parent design: T8 child-task design and required end-to-end scenarios"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/implement.md", "reason": "Parent execution plan: T8 artifacts, verify gate, rollback point"}
+{"file": ".trellis/tasks/06-01-java-relay-integration/prd.md", "reason": "Task PRD: exact integration scope and acceptance criteria"}
+{"file": ".trellis/spec/java/api-contract.md", "reason": "Public route contract that integration tests must exercise end-to-end"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Architecture constraint: test-only upstream infrastructure must not leak into production runtime"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/relay/RelayRouter.java", "reason": "Real route entrypoint that tests must drive instead of bypassing relay"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/relay/RelayHandler.java", "reason": "Relay entry behavior for guarded stream/unsupported cases"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/security/RequestAuthenticationFilter.java", "reason": "Auth behavior that integration tests must cover for missing/invalid API keys"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/config/RelayProperties.java", "reason": "Configuration surface for test profile and stub upstream wiring"}

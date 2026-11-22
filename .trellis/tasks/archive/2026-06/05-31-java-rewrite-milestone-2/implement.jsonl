@@ -1,0 +1,5 @@
+{"file": ".trellis/spec/java/roadmap.md", "reason": "Milestone sequencing and Milestone 2 scope"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Package boundaries for CRUD services"}
+{"file": ".trellis/spec/java/api-contract.md", "reason": "Admin API endpoint contracts"}
+{"file": ".trellis/spec/java/security-auth.md", "reason": "Auth flow rules for login/JWT/API key"}
+{"file": ".trellis/spec/java/database-persistence.md", "reason": "Entity and migration rules"}

@@ -1,0 +1,31 @@
+{
+  "id": "java-production-gaps",
+  "name": "java-production-gaps",
+  "title": "Java 生产就绪补齐",
+  "description": "",
+  "status": "completed",
+  "dev_type": null,
+  "scope": null,
+  "package": "backend",
+  "priority": "P0",
+  "creator": "sweyyuki",
+  "assignee": "sweyyuki",
+  "createdAt": "2026-06-01",
+  "completedAt": "2026-06-02",
+  "branch": "feat/java-m1-bootstrap",
+  "base_branch": "feat/java-m1-bootstrap",
+  "worktree_path": null,
+  "commit": null,
+  "pr_url": null,
+  "subtasks": [],
+  "children": [
+    "06-01-frontend-integration",
+    "06-01-mysql-support",
+    "06-01-gemini-provider",
+    "06-01-full-backup-restore"
+  ],
+  "parent": null,
+  "relatedFiles": [],
+  "notes": "",
+  "meta": {}
+}

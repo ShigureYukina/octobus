@@ -1,0 +1,5 @@
+{"file": ".trellis/tasks/05-31-java-model-log-stats/prd.md", "reason": "Acceptance criteria: endpoints work with admin JWT, return 401 without auth, pagination and filtering, Maven tests pass"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/common/ApiResponse.java", "reason": "Verify all endpoints use shared ApiResponse envelope"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/common/ApiException.java", "reason": "Verify error responses use ApiException pattern"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/security/RequestAuthenticationFilter.java", "reason": "Verify endpoints are under /api/v1/ so auth is enforced"}
+{"file": "java/pom.xml", "reason": "Dependencies check: no unintended new dependencies"}

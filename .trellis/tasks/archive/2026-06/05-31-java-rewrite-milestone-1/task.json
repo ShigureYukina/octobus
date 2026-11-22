@@ -1,0 +1,33 @@
+{
+  "id": "java-rewrite-milestone-1",
+  "name": "java-rewrite-milestone-1",
+  "title": "Plan Java rewrite milestone 1",
+  "description": "",
+  "status": "completed",
+  "dev_type": null,
+  "scope": null,
+  "package": "backend",
+  "priority": "P2",
+  "creator": "sweyyuki",
+  "assignee": "sweyyuki",
+  "createdAt": "2026-05-31",
+  "completedAt": "2026-06-01",
+  "branch": "feat/java-m1-bootstrap",
+  "base_branch": "dev",
+  "worktree_path": null,
+  "commit": null,
+  "pr_url": null,
+  "subtasks": [],
+  "children": [
+    "05-31-java-bootstrap-project",
+    "05-31-java-config-and-validation",
+    "05-31-java-persistence-baseline",
+    "05-31-java-shared-response-and-exception",
+    "05-31-java-security-baseline",
+    "05-31-java-health-and-smoke-test"
+  ],
+  "parent": null,
+  "relatedFiles": [],
+  "notes": "",
+  "meta": {}
+}

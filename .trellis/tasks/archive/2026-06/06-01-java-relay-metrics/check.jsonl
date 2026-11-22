@@ -1,0 +1,5 @@
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/prd.md", "reason": "Check T7 against milestone usage/cost/logging/statistics requirements"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/design.md", "reason": "Check pricing formula, seven updates, and RelayLog field expectations"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/implement.md", "reason": "Check T7 validation gate and rollback expectations"}
+{"file": ".trellis/tasks/06-01-java-relay-metrics/prd.md", "reason": "Task-level acceptance criteria for cost calculation and persistence behavior"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Verify metrics implementation stays separate from provider logic and respects layering"}

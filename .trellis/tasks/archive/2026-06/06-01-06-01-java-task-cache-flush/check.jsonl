@@ -1,0 +1,7 @@
+{"file":".trellis/spec/guides/index.md","reason":"检查阶段沿用共享流程与质量门禁。"}
+{"file":".trellis/spec/backend/index.md","reason":"检查后端边界和职责拆分是否被破坏。"}
+{"file":".trellis/spec/java/index.md","reason":"检查 Java 实现是否符合 Java 侧约定。"}
+{"file":".trellis/tasks/06-01-java-mvp-gap-fill/prd.md","reason":"以 parent PRD 约束当前 child 不越界。"}
+{"file":".trellis/tasks/06-01-06-01-java-task-cache-flush/prd.md","reason":"以 child PRD 作为当前实现验收标准。"}
+{"file":".trellis/tasks/06-01-06-01-java-task-cache-flush/design.md","reason":"检查实现是否遵循记录时归桶、显式 flush 测试等关键设计。"}
+{"file":".trellis/tasks/06-01-06-01-java-task-cache-flush/implement.md","reason":"检查实现步骤、验证方式与回滚点是否一致。"}

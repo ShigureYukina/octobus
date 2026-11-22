@@ -1,0 +1,6 @@
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/prd.md", "reason": "Check T8 against milestone-level M3 acceptance criteria"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/design.md", "reason": "Check required end-to-end scenarios and integration boundaries"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/implement.md", "reason": "Check T8 verify gate and final validation expectations"}
+{"file": ".trellis/tasks/06-01-java-relay-integration/prd.md", "reason": "Task-level acceptance criteria for integration coverage and isolation"}
+{"file": ".trellis/spec/java/api-contract.md", "reason": "Verify all exercised endpoints and auth cases match public contract"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Verify test-only upstream infrastructure does not leak into production wiring"}

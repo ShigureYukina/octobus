@@ -1,0 +1,11 @@
+{"file":".trellis/spec/guides/index.md","reason":"检查阶段需要沿用共享的 Trellis 质量门禁与流程约束。"}
+{"file":".trellis/spec/backend/index.md","reason":"检查后端实现与分层边界时的总索引。"}
+{"file":".trellis/spec/java/index.md","reason":"检查 Java 实现是否符合 Java 侧约定与边界。"}
+{"file":".trellis/tasks/06-01-java-mvp-gap-fill/prd.md","reason":"以 parent PRD 作为最终范围、验收与 out-of-scope 的总真源。"}
+{"file":".trellis/tasks/06-01-java-mvp-gap-fill/design.md","reason":"检查跨子任务设计是否仍然一致。"}
+{"file":".trellis/tasks/06-01-java-mvp-gap-fill/implement.md","reason":"检查实现顺序与子任务路由是否与 parent 规划一致。"}
+{"file":".trellis/tasks/06-01-06-01-java-task-cache-flush/prd.md","reason":"检查后台任务与缓存刷盘实现是否未超出子任务范围。"}
+{"file":".trellis/tasks/06-01-06-01-java-streaming-relay/prd.md","reason":"检查 streaming 实现是否仍限定在 chat completions SSE MVP。"}
+{"file":".trellis/tasks/06-01-06-01-java-anthropic-messages/prd.md","reason":"检查 Anthropic 实现是否仍限定在非流式 text-only MVP。"}
+{"file":".trellis/tasks/06-01-06-01-java-model-crud-models/prd.md","reason":"检查 model CRUD 与模型列表实现是否贴合子任务验收标准。"}
+{"file":".trellis/tasks/06-01-06-01-java-channel-model-sync/prd.md","reason":"检查 channel 模型同步实现是否贴合同步与整理动作范围。"}

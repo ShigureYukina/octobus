@@ -1,0 +1,18 @@
+{"file": ".trellis/tasks/05-31-java-rewrite-milestone-2/prd.md", "reason": "Parent milestone PRD: ordering, dependency on user-auth, CRUD scope"}
+{"file": ".trellis/tasks/05-31-java-rewrite-milestone-2/design.md", "reason": "Technical design: CRUD patterns, response envelope, Flyway migration pattern"}
+{"file": ".trellis/tasks/05-31-java-apikey-crud/prd.md", "reason": "Task PRD: acceptance criteria and requirements"}
+{"file": "internal/server/handlers/apikey.go", "reason": "Go handler: exact routes (create/list/update/delete/:id/stats/login), request/response handling patterns"}
+{"file": "internal/model/apikey.go", "reason": "Go model: APIKey struct with JSON tags for API contract"}
+{"file": "internal/op/apikey.go", "reason": "Go op layer: APIKeyCreate/Update/List/Get/GetByAPIKey/Delete, cache patterns"}
+{"file": "internal/server/auth/auth.go", "reason": "Go auth: GenerateAPIKey() for key format (sk-octopus-xxx), GenerateJWTToken/VerifyJWTToken for comparison"}
+{"file": "web/src/api/endpoints/apikey.ts", "reason": "Frontend API contract: APIKey/CreateAPIKeyRequest/UpdateAPIKeyRequest types, exact field names and snake_case"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/common/ApiResponse.java", "reason": "Shared response envelope - all endpoints must use this"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/common/ApiException.java", "reason": "Exception pattern for error responses"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/controller/ModelController.java", "reason": "Existing controller pattern: @RestController, constructor injection, empty-package visibility"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/domain/ModelService.java", "reason": "Existing service pattern: @Service, constructor injection, thin delegation"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/persistence/ModelRepository.java", "reason": "Existing repository pattern: @Repository, JdbcTemplate, RowMapper lambda"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/controller/UserController.java", "reason": "Auth-guarded controller pattern: JWT filter auto-protects /api/v1/ endpoints"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/domain/UserAccount.java", "reason": "Entity record pattern: DTO/entity separation patterns"}
+{"file": "java/src/main/resources/application.yml", "reason": "Application config: reactive mode, SQLite JDBC URL pattern"}
+{"file": "java/pom.xml", "reason": "Dependencies: WebFlux, JDBC, Flyway, SQLite, validation"}
+{"file": "java/src/main/resources/db/migration/V1__persistence_baseline.sql", "reason": "Existing Flyway migration pattern: CREATE TABLE IF NOT EXISTS"}

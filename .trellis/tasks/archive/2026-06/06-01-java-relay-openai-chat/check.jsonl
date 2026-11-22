@@ -1,0 +1,7 @@
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/prd.md", "reason": "Check T6 against milestone single-working-path and non-streaming requirements"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/design.md", "reason": "Check OpenAI Chat path design, provider client placement, and integration boundaries"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/implement.md", "reason": "Check T6 validation gate and rollback point"}
+{"file": ".trellis/tasks/06-01-java-relay-openai-chat/prd.md", "reason": "Task-level acceptance criteria for OpenAI Chat end-to-end behavior"}
+{"file": ".trellis/spec/java/relay-protocol-adapter.md", "reason": "Verify protocol mapping and guarded unsupported-format behavior"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Verify provider client placement and no domain leakage"}
+{"file": ".trellis/spec/java/api-contract.md", "reason": "Verify /v1/chat/completions compatibility and route behavior"}

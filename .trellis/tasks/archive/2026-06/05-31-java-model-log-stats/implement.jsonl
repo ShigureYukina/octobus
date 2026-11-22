@@ -1,0 +1,26 @@
+{"file": ".trellis/tasks/05-31-java-rewrite-milestone-2/prd.md", "reason": "Parent milestone PRD: ordering, dependency on user-auth, model/log/stats query scope"}
+{"file": ".trellis/tasks/05-31-java-rewrite-milestone-2/design.md", "reason": "Technical design: CRUD patterns, response envelope, Flyway migration pattern"}
+{"file": ".trellis/tasks/05-31-java-model-log-stats/prd.md", "reason": "Task PRD: requirements and acceptance criteria"}
+{"file": "internal/server/handlers/model.go", "reason": "Go handler: exact routes (list/create/update/delete/channel/last-update-time/update-price), response shape for listLLM/listLLMByChannel"}
+{"file": "internal/server/handlers/log.go", "reason": "Go handler: exact routes (list/clear/stream-token/stream), log list request/response pattern"}
+{"file": "internal/server/handlers/stats.go", "reason": "Go handler: exact routes (today/daily/hourly/total/apikey), stats response patterns"}
+{"file": "internal/model/stats.go", "reason": "Go model: StatsTotal/StatsDaily/StatsHourly/StatsChannel/StatsAPIKey structs with JSON tags"}
+{"file": "internal/model/log.go", "reason": "Go model: RelayLog struct with JSON tags, attempt handling"}
+{"file": "web/src/api/endpoints/model.ts", "reason": "Frontend API contract: LLMInfo/LLMChannel types, model endpoints (list/channel/create/update/delete/update-price/last-update-time)"}
+{"file": "web/src/api/endpoints/log.ts", "reason": "Frontend API contract: RelayLog/LogListParams/ChannelAttempt types, infinite query pattern for log list"}
+{"file": "web/src/api/endpoints/stats.ts", "reason": "Frontend API contract: StatsMetrics/StatsDaily/StatsHourly/StatsTotal/StatsAPIKey/StatsChannel types, snake_case convention"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/common/ApiResponse.java", "reason": "Shared response envelope - all endpoints must use this"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/common/ApiException.java", "reason": "Exception pattern for error responses"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/controller/ModelController.java", "reason": "Existing controller: GET /api/v1/model/list, may need create/update/delete/channel endpoints"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/controller/LogController.java", "reason": "Existing controller: GET /api/v1/log/list with pagination/filtering"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/controller/StatsController.java", "reason": "Existing controller: GET /api/v1/stats/today/daily/hourly/total"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/persistence/ModelRepository.java", "reason": "Existing repository: JdbcTemplate-based model queries"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/persistence/LogRepository.java", "reason": "Existing repository: JdbcTemplate-based log queries with pagination"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/persistence/StatsRepository.java", "reason": "Existing repository: JdbcTemplate-based stats queries for today/daily/hourly/total"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/domain/ModelService.java", "reason": "Existing service: model list delegation"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/domain/LogService.java", "reason": "Existing service: log list with filtering"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/domain/StatsService.java", "reason": "Existing service: stats today/daily/hourly/total queries"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/controller/UserController.java", "reason": "Auth-guarded controller pattern: JWT filter auto-protects /api/v1/ endpoints"}
+{"file": "java/src/main/resources/application.yml", "reason": "Application config: reactive mode, SQLite JDBC URL pattern"}
+{"file": "java/pom.xml", "reason": "Dependencies: WebFlux, JDBC, Flyway, SQLite, validation"}
+{"file": "java/src/main/resources/db/migration/V2__model_log_stats.sql", "reason": "Existing Flyway migration: model/relay_log/stats tables DDL"}

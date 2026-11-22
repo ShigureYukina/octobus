@@ -1,0 +1,33 @@
+{
+  "id": "java-rewrite-milestone-2",
+  "name": "java-rewrite-milestone-2",
+  "title": "Plan Java rewrite milestone 2",
+  "description": "",
+  "status": "completed",
+  "dev_type": null,
+  "scope": null,
+  "package": "backend",
+  "priority": "P2",
+  "creator": "sweyyuki",
+  "assignee": "sweyyuki",
+  "createdAt": "2026-05-31",
+  "completedAt": "2026-06-01",
+  "branch": null,
+  "base_branch": "dev",
+  "worktree_path": null,
+  "commit": null,
+  "pr_url": null,
+  "subtasks": [],
+  "children": [
+    "05-31-java-user-auth",
+    "05-31-java-channel-crud",
+    "05-31-java-group-crud",
+    "05-31-java-apikey-crud",
+    "05-31-java-setting-crud",
+    "05-31-java-model-log-stats"
+  ],
+  "parent": null,
+  "relatedFiles": [],
+  "notes": "",
+  "meta": {}
+}

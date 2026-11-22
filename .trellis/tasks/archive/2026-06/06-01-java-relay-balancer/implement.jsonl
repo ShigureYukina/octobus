@@ -1,0 +1,14 @@
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/prd.md", "reason": "Parent milestone PRD: candidate selection, balancer, sticky, breaker, and non-network constraint"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/design.md", "reason": "Parent design: T3 child-task design, balancer semantics, iterator behavior, ordering guidance"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/implement.md", "reason": "Parent execution plan: T3 artifacts, validation gate, rollback point"}
+{"file": ".trellis/tasks/06-01-java-relay-balancer/prd.md", "reason": "Task PRD: exact balancer and iterator requirements"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Architecture constraint: candidate selection stays pure and inside relay package boundaries"}
+{"file": "internal/relay/balancer/balancer.go", "reason": "Go reference: RoundRobin, Random, Failover, Weighted strategy semantics"}
+{"file": "internal/relay/balancer/iterator.go", "reason": "Go reference: iterator structure, sticky priority, skip/attempt recording"}
+{"file": "internal/relay/balancer/session.go", "reason": "Go reference: sticky lookup behavior that iterator must respect conceptually"}
+{"file": "internal/relay/balancer/circuit.go", "reason": "Go reference: breaker decisions treated as skips rather than provider attempts"}
+{"file": "internal/model/group.go", "reason": "Go model reference: Group and GroupItem fields that drive candidate ordering"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/relay/RelayCandidate.java", "reason": "Current Java candidate value object from T1; balancer/iterator should align or replace intentionally"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/relay/RelayCandidateIterator.java", "reason": "Current Java placeholder iterator from T1; target file to replace with real behavior"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/domain/Group.java", "reason": "Java domain model: source of group mode, sticky TTL, and items used by iterator"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/domain/GroupItem.java", "reason": "Java domain model: candidate metadata including priority/weight/model mapping"}

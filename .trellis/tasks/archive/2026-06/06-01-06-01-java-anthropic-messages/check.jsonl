@@ -1,0 +1,9 @@
+{"file":".trellis/spec/guides/index.md","reason":"检查阶段沿用共享流程与质量门禁。"}
+{"file":".trellis/spec/java/index.md","reason":"检查 Java 实现是否符合 Java 侧约定。"}
+{"file":".trellis/spec/java/architecture.md","reason":"检查包边界是否被破坏。"}
+{"file":".trellis/spec/java/relay-protocol-adapter.md","reason":"检查 Anthropic 协议适配是否符合规范。"}
+{"file":".trellis/spec/java/api-contract.md","reason":"检查 API 契约兼容性。"}
+{"file":".trellis/tasks/06-01-java-mvp-gap-fill/prd.md","reason":"以 parent PRD 约束当前 child 不越界。"}
+{"file":".trellis/tasks/06-01-06-01-java-anthropic-messages/prd.md","reason":"以 child PRD 作为当前实现验收标准。"}
+{"file":".trellis/tasks/06-01-06-01-java-anthropic-messages/design.md","reason":"检查实现是否遵循 text-only、system 提取、x-api-key 认证等关键设计。"}
+{"file":".trellis/tasks/06-01-06-01-java-anthropic-messages/implement.md","reason":"检查实现步骤、验证方式与回滚点是否一致。"}

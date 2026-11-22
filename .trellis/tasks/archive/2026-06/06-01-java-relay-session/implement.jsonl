@@ -1,0 +1,9 @@
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/prd.md", "reason": "Parent milestone PRD: sticky-session requirement and TTL behavior"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/design.md", "reason": "Parent design: T5 child-task design, key/value shape, in-memory scope, future swappability"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/implement.md", "reason": "Parent execution plan: T5 artifacts, validation gate, rollback point"}
+{"file": ".trellis/tasks/06-01-java-relay-session/prd.md", "reason": "Task PRD: exact sticky-store requirements and acceptance criteria"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Architecture constraint: sticky store stays in relay layer and independent from provider code"}
+{"file": "internal/relay/balancer/session.go", "reason": "Go reference: sticky key shape, TTL lookup semantics, and success-path persistence behavior"}
+{"file": "internal/relay/balancer/session_test.go", "reason": "Go reference tests: expiry and sticky hit expectations"}
+{"file": "internal/model/group.go", "reason": "Go model reference: session keep time field driving sticky enable/disable"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/domain/Group.java", "reason": "Java domain model: source of sessionKeepTime for sticky TTL behavior"}

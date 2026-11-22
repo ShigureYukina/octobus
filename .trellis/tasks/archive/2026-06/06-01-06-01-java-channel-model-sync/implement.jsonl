@@ -1,0 +1,10 @@
+{"file":".trellis/spec/guides/index.md","reason":"共享 Trellis 规划/执行规范，约束子任务实施流程。"}
+{"file":".trellis/spec/java/index.md","reason":"Java 侧实现约定，约束 Spring / persistence / service 风格。"}
+{"file":".trellis/spec/java/architecture.md","reason":"包边界约束，确保 helper / domain / task / controller 分层正确。"}
+{"file":".trellis/spec/java/api-contract.md","reason":"API 契约约束，确保 /api/v1/channel/fetch-models 等端点兼容。"}
+{"file":".trellis/spec/java/database-persistence.md","reason":"持久层约定，确认 group_items / model 表操作与事务语义。"}
+{"file":".trellis/tasks/06-01-java-mvp-gap-fill/prd.md","reason":"parent task 的总范围与 out-of-scope 约束。"}
+{"file":".trellis/tasks/06-01-java-mvp-gap-fill/design.md","reason":"父任务总体设计，避免当前 child 与其他 child 边界冲突。"}
+{"file":".trellis/tasks/06-01-06-01-java-channel-model-sync/prd.md","reason":"当前 child 的需求、验收与非目标范围。"}
+{"file":".trellis/tasks/06-01-06-01-java-channel-model-sync/design.md","reason":"当前 child 的技术设计与测试策略。"}
+{"file":".trellis/tasks/06-01-06-01-java-channel-model-sync/implement.md","reason":"当前 child 的执行步骤、验证命令与回滚点。"}

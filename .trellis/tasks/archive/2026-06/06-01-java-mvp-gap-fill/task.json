@@ -1,0 +1,32 @@
+{
+  "id": "java-mvp-gap-fill",
+  "name": "java-mvp-gap-fill",
+  "title": "填补 P0/P1 功能差距 (Streaming, Anthropic 适配器, 后台任务, 缓存层, Model CRUD, Channel sync)",
+  "description": "",
+  "status": "completed",
+  "dev_type": null,
+  "scope": null,
+  "package": "backend",
+  "priority": "P2",
+  "creator": "sweyyuki",
+  "assignee": "sweyyuki",
+  "createdAt": "2026-06-01",
+  "completedAt": "2026-06-01",
+  "branch": null,
+  "base_branch": "feat/java-m1-bootstrap",
+  "worktree_path": null,
+  "commit": null,
+  "pr_url": null,
+  "subtasks": [],
+  "children": [
+    "06-01-06-01-java-task-cache-flush",
+    "06-01-06-01-java-streaming-relay",
+    "06-01-06-01-java-anthropic-messages",
+    "06-01-06-01-java-model-crud-models",
+    "06-01-06-01-java-channel-model-sync"
+  ],
+  "parent": null,
+  "relatedFiles": [],
+  "notes": "",
+  "meta": {}
+}

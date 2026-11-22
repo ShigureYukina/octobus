@@ -1,0 +1,5 @@
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/prd.md", "reason": "Check T5 against milestone sticky-session requirements and TTL rules"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/design.md", "reason": "Check key/value shape, in-memory scope, and swappable interface design"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/implement.md", "reason": "Check T5 validation gate and rollback expectations"}
+{"file": ".trellis/tasks/06-01-java-relay-session/prd.md", "reason": "Task-level acceptance criteria for TTL read/write and disabled behavior"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Verify sticky store remains isolated from provider and persistence concerns"}

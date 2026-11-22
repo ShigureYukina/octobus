@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS api_key (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    api_key TEXT NOT NULL,
+    enabled INTEGER NOT NULL DEFAULT 1,
+    expire_at INTEGER,
+    max_cost REAL,
+    supported_models TEXT,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

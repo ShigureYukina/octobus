@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS app_bootstrap_probe (
+    id INTEGER PRIMARY KEY,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

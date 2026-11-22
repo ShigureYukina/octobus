@@ -1,0 +1,6 @@
+{"file": ".trellis/spec/java/index.md", "reason": "Ensure child planning still aligns with the Java rewrite scope"}
+{"file": ".trellis/spec/java/roadmap.md", "reason": "Verify milestone boundaries and acceptance criteria"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Check package boundaries before implementation starts"}
+{"file": ".trellis/spec/java/security-auth.md", "reason": "Verify config-driven JWT and auth boundary rules"}
+{"file": ".trellis/spec/java/database-persistence.md", "reason": "Verify SQLite and migration baseline plan"}
+{"file": ".trellis/spec/java/configuration.md", "reason": "Verify startup config validation expectations"}

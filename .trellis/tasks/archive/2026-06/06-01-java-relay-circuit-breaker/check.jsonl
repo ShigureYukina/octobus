@@ -1,0 +1,5 @@
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/prd.md", "reason": "Check T4 against milestone breaker requirements and scope constraints"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/design.md", "reason": "Check key shape, cooldown behavior, and in-process state design"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/implement.md", "reason": "Check T4 validation gate and rollback expectations"}
+{"file": ".trellis/tasks/06-01-java-relay-circuit-breaker/prd.md", "reason": "Task-level acceptance criteria for transitions and key isolation"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Verify no persistence/provider coupling is introduced"}

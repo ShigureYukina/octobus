@@ -1,0 +1,9 @@
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/prd.md", "reason": "Parent milestone PRD: per-channel/per-key/per-model breaker requirement and in-process constraint"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/design.md", "reason": "Parent design: T4 child-task design, key shape, state machine, cooldown semantics"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/implement.md", "reason": "Parent execution plan: T4 artifacts, validation gate, rollback point"}
+{"file": ".trellis/tasks/06-01-java-relay-circuit-breaker/prd.md", "reason": "Task PRD: exact breaker requirements and acceptance criteria"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Architecture constraint: breaker remains a relay concern with no persistence or network coupling"}
+{"file": "internal/relay/balancer/circuit.go", "reason": "Go reference: Closed/Open/HalfOpen state machine and exponential cooldown behavior"}
+{"file": "internal/relay/balancer/circuit_test.go", "reason": "Go reference tests: expected breaker edge cases and state transitions"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/config/RelayProperties.java", "reason": "Existing relay config shape: reuse circuitBreaker settings and extend only if strictly necessary"}
+{"file": "java/pom.xml", "reason": "Dependency boundary: breaker should use standard JDK/Spring primitives only"}

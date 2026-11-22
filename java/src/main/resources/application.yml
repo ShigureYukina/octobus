@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: octobus-java
+  main:
+    web-application-type: reactive
+
+server:
+  address: ${octobus.server.host}
+  port: ${octobus.server.port}
+
+octobus:
+  server:
+    # Environment overrides: OCTOBUS_SERVER_HOST / OCTOBUS_SERVER_PORT
+    host: 0.0.0.0
+    port: 8081
+  web:
+    # Environment overrides: OCTOBUS_WEB_ENABLED / OCTOBUS_WEB_STATIC_DIR / OCTOBUS_WEB_INDEX_FILE
+    enabled: true
+    # Java line ships its own admin frontend under java/web/ (physically split from web/).
+    # The built export is written to java/web/out by `pnpm build`, which is what this
+    # default points at so the Java backend serves the Java line frontend and never the
+    # Go line's web/out -> static/out pipeline.
+    static-dir: ./web/out
+    index-file: index.html
+  database:
+    # Environment overrides: OCTOBUS_DATABASE_TYPE / OCTOBUS_DATABASE_URL / OCTOBUS_DATABASE_USERNAME / OCTOBUS_DATABASE_PASSWORD
+    type: sqlite
+    url: jdbc:sqlite:./data/octobus.db
+    username:
+    password:
+  relay:
+    # Environment overrides follow Spring Boot relaxed binding, e.g.
+    # OCTOBUS_RELAY_CONNECT_TIMEOUT, OCTOBUS_RELAY_RETRY_MAX_ATTEMPTS
+    connect-timeout: 5s
+    read-timeout: 60s
+    retry:
+      max-attempts: 2
+      backoff: 500ms
+    circuit-breaker:
+      failure-threshold: 5
+      open-state-duration: 30s
+      max-cooldown: 10m
+  auth:
+    # Environment override: OCTOBUS_AUTH_JWT_SECRET
+    # CAUTION: Default secret is for development only. Override in production.
+    jwt-secret: dev-secret-change-in-production

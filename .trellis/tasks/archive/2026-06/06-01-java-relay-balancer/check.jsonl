@@ -1,0 +1,5 @@
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/prd.md", "reason": "Check T3 against milestone balancer/iterator requirements and non-network constraint"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/design.md", "reason": "Check strategy semantics, sticky priority, and attempts-chain behavior against planned design"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/implement.md", "reason": "Check T3 validation gate and expected artifacts"}
+{"file": ".trellis/tasks/06-01-java-relay-balancer/prd.md", "reason": "Task-level acceptance criteria for strategies and iterator behavior"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Verify candidate selection remains pure and does not leak provider/persistence behavior"}

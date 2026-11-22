@@ -1,0 +1,14 @@
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/prd.md", "reason": "Parent milestone PRD: usage parsing, three-tier cost calculation, stats updates, RelayLog persistence"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/design.md", "reason": "Parent design: T7 child-task design, pricing source, seven updates, audit log fields"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/implement.md", "reason": "Parent execution plan: T7 artifacts, validation gate, rollback point"}
+{"file": ".trellis/tasks/06-01-java-relay-metrics/prd.md", "reason": "Task PRD: exact metrics/logging requirements and acceptance criteria"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Architecture constraint: keep metrics/persistence separate from provider client code"}
+{"file": "internal/relay/metrics.go", "reason": "Go reference: usage parsing, cost calculation, stats fan-out, log persistence fields"}
+{"file": "internal/relay/metrics_test.go", "reason": "Go reference tests: expected usage-recording and final-channel behavior"}
+{"file": "internal/model/log.go", "reason": "Go model reference: RelayLog and ChannelAttempt audit fields"}
+{"file": "internal/model/stats.go", "reason": "Go model reference: stats metrics dimensions and update targets"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/domain/RelayLog.java", "reason": "Java domain model: target audit log entity/DTO shape"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/domain/ChannelAttempt.java", "reason": "Java domain model: attempts chain shape used in logs"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/domain/Stats.java", "reason": "Java domain model: target statistics update shape"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/persistence/LogRepository.java", "reason": "Java persistence reference: existing log persistence surface to reuse/extend"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/persistence/StatsRepository.java", "reason": "Java persistence reference: existing stats update surface to reuse/extend"}

@@ -1,0 +1,7 @@
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/prd.md", "reason": "Check T2 against milestone-level M3 requirements and acceptance scope"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/design.md", "reason": "Check unified request/response model and guarded-format behavior against planned design"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/implement.md", "reason": "Check T2 artifact list, validation gate, and rollback point"}
+{"file": ".trellis/tasks/06-01-java-relay-adapter-spi/prd.md", "reason": "Task-level acceptance criteria for SPI, registry, and non-target guarded outcomes"}
+{"file": ".trellis/spec/java/relay-protocol-adapter.md", "reason": "Primary spec for supported protocol matrix and normalization rule"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Verify package-boundary compliance and no provider HTTP leakage"}
+{"file": ".trellis/spec/java/api-contract.md", "reason": "Verify public endpoint compatibility assumptions remain intact"}

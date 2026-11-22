@@ -1,0 +1,16 @@
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/prd.md", "reason": "Parent milestone PRD: single fully working path requirement and non-streaming scope"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/design.md", "reason": "Parent design: T6 child-task design, provider-client placement, OpenAI Chat path expectations"}
+{"file": ".trellis/tasks/06-01-05-31-java-rewrite-milestone-3/implement.md", "reason": "Parent execution plan: T6 artifacts, validation gate, rollback point"}
+{"file": ".trellis/tasks/06-01-java-relay-openai-chat/prd.md", "reason": "Task PRD: exact OpenAI Chat path requirements and acceptance criteria"}
+{"file": ".trellis/spec/java/relay-protocol-adapter.md", "reason": "Protocol spec: OpenAI Chat request/response expectations and normalization rule"}
+{"file": ".trellis/spec/java/architecture.md", "reason": "Architecture constraint: provider HTTP client must live under relay/provider, not domain"}
+{"file": ".trellis/spec/java/api-contract.md", "reason": "Public route compatibility: /v1/chat/completions must remain behaviorally compatible"}
+{"file": "internal/relay/relay.go", "reason": "Go reference: non-streaming relay attempt flow and candidate retry orchestration"}
+{"file": "internal/relay/transformers.go", "reason": "Go reference: OpenAI Chat inbound/outbound mapping entrypoints"}
+{"file": "internal/relay/type.go", "reason": "Go reference: relayRun and relayAttempt responsibilities"}
+{"file": "internal/server/server.go", "reason": "Go route binding reference for chat completions handler"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/relay/RelayHandler.java", "reason": "Current Java relay entrypoint from T1; integrate real path without regressing guarded behavior"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/relay/RelayRun.java", "reason": "Current Java request-level shell: target file for real run logic integration"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/relay/RelayAttempt.java", "reason": "Current Java attempt shell: target file for provider dispatch integration"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/config/RelayProperties.java", "reason": "Relay timeout/retry/breaker configuration available to provider client"}
+{"file": "java/src/main/java/io/github/shigureyukina/octobus/common/ApiResponse.java", "reason": "Shared error envelope for controlled upstream/unsupported failures"}
