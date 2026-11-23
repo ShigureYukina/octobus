@@ -1,8 +1,9 @@
 import { useTheme } from '@/provider/theme';
 import { useTranslations } from 'use-intl';
-import { Sun, Moon, Monitor, Languages } from 'lucide-react';
+import { Sun, Moon, Monitor, Languages, Palette } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useSettingStore, type Locale } from '@/stores/setting';
+import { ThemeColorPanel } from '@/components/theme/theme-color-panel';
 
 export function SettingAppearance() {
     const t = useTranslations('setting');
@@ -59,6 +60,15 @@ export function SettingAppearance() {
                         <SelectItem value="en" className="rounded-xl">{t('language.en')}</SelectItem>
                     </SelectContent>
                 </Select>
+            </div>
+
+            {/* 主题色 */}
+            <div className="space-y-4 border-t border-border pt-5">
+                <div className="flex items-center gap-3">
+                    <Palette className="h-5 w-5 text-muted-foreground" />
+                    <span className="text-sm font-medium">{t('themeColor.title')}</span>
+                </div>
+                <ThemeColorPanel />
             </div>
         </div>
     );

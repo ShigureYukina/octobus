@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { useThemeColors } from '@/hooks/use-theme-colors';
 
 type Theme = 'light' | 'dark' | 'system';
 type ResolvedTheme = Exclude<Theme, 'system'>;
@@ -10,6 +11,11 @@ interface ThemeContextValue {
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
+
+function ThemeColorsApplier() {
+    useThemeColors();
+    return null;
+}
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
     const [theme, setThemeState] = useState<Theme>(() => {
@@ -53,6 +59,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
     return (
         <ThemeContext value={{ theme, resolvedTheme, setTheme }}>
+            <ThemeColorsApplier />
             {children}
         </ThemeContext>
     );

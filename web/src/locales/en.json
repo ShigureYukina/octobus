@@ -300,6 +300,25 @@
             },
             "clearSuccess": "Logs cleared",
             "clearFailed": "Failed to clear logs"
+        },
+        "themeColor": {
+            "title": "Theme Color",
+            "preset": "Preset Themes",
+            "custom": "Custom Colors",
+            "background": "Background",
+            "pageBackground": "Page Background",
+            "cardBackground": "Card Background",
+            "sidebarBackground": "Sidebar Background",
+            "accentColors": "Accent Colors",
+            "primary": "Primary",
+            "accent": "Accent",
+            "ring": "Ring",
+            "chartColors": "Chart Colors",
+            "chart": "Chart",
+            "sidebarColors": "Sidebar Colors",
+            "sidebarPrimary": "Sidebar Primary",
+            "sidebarAccent": "Sidebar Accent",
+            "reset": "Reset to Default"
         }
     },
     "group": {

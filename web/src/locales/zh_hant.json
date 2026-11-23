@@ -300,6 +300,25 @@
             },
             "clearSuccess": "日誌已清空",
             "clearFailed": "清空失敗"
+        },
+        "themeColor": {
+            "title": "主題色",
+            "preset": "預設主題",
+            "custom": "自定義顏色",
+            "background": "背景顏色",
+            "pageBackground": "頁面背景",
+            "cardBackground": "卡片背景",
+            "sidebarBackground": "側邊欄背景",
+            "accentColors": "強調顏色",
+            "primary": "主色調",
+            "accent": "強調色",
+            "ring": "焦點環",
+            "chartColors": "圖表顏色",
+            "chart": "圖表",
+            "sidebarColors": "側邊欄顏色",
+            "sidebarPrimary": "側邊欄主色",
+            "sidebarAccent": "側邊欄強調色",
+            "reset": "重置預設"
         }
     },
     "group": {
