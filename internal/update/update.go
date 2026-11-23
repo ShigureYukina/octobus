@@ -18,9 +18,9 @@ import (
 	"github.com/charmbracelet/log"
 )
 
-const (
-	updateUrl    = "https://github.com/bestruirui/octopus/releases/latest/download"
-	updateApiUrl = "https://api.github.com/repos/bestruirui/octopus/releases/latest"
+var (
+	updateUrl    = "https://github.com/ShigureYukina/octobus/releases/latest/download"
+	updateApiUrl = "https://api.github.com/repos/ShigureYukina/octobus/releases/latest"
 )
 
 type LatestInfo struct {
