@@ -227,7 +227,7 @@ func migrateLegacyChannelStats(db *gorm.DB) error {
 
 	type legacyChannelStats struct {
 		ChannelID int `gorm:"column:channel_id"` // 所属渠道主键。
-		snapshotStatsMetrics
+		SnapshotStatsMetrics
 	}
 	stats := make([]legacyChannelStats, 0)
 	if err := db.Table("stats_channels").Order("channel_id ASC").Find(&stats).Error; err != nil {
@@ -318,12 +318,15 @@ func migrateLegacyGroupItems(db *gorm.DB, modelsByKey map[channelModelKey]*chann
 			return fmt.Errorf("failed to create migrated group_items: %w", err)
 		}
 	}
-	if len(invalidIDs) > 0 && db.Migrator().HasTable("groups") {
+	// 迁移 8 属于 BeforeAutoMigrate，此时 AutoMigrate 尚未给 groups 补列；
+	// 老库的 groups 可能没有 active_item_id，必须先判断物理列是否存在。
+	hasActiveItem := db.Migrator().HasTable("groups") && hasPhysicalColumn(db, "groups", "active_item_id")
+	if len(invalidIDs) > 0 && hasActiveItem {
 		if err := db.Model(&groupsTable{}).Where("active_item_id IN ?", invalidIDs).Update("active_item_id", 0).Error; err != nil {
 			return fmt.Errorf("failed to clear invalid active items: %w", err)
 		}
 	}
-	if db.Migrator().HasTable("groups") {
+	if hasActiveItem {
 		if err := clearStaleActiveItems(db); err != nil {
 			return err
 		}
@@ -334,6 +337,9 @@ func migrateLegacyGroupItems(db *gorm.DB, modelsByKey map[channelModelKey]*chann
 // clearStaleActiveItems 把 active_item_id 指向已不存在或不属于本分组的成员的分组重置为 0。
 // groups 在 MySQL 8.0.2+ 和 TiDB 里是保留字，改用 GORM 模型让各方言自行加引号，避免拼接原始 SQL。
 func clearStaleActiveItems(db *gorm.DB) error {
+	if !db.Migrator().HasTable("groups") || !hasPhysicalColumn(db, "groups", "active_item_id") {
+		return nil
+	}
 	type groupActiveItem struct {
 		ID           int // 分组主键。
 		ActiveItemID int // 分组当前选中的成员主键。

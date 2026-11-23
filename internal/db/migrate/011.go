@@ -77,6 +77,18 @@ func migrateChannelGrants(db *gorm.DB) error {
 	}
 	// 用 CreateTable 而非 AutoMigrate: AutoMigrate 会顺着 ChannelKey 的外键回溯到父表 Channel 并一并迁移,
 	// 从而重建 channels, 其 DROP TABLE 会级联清空 channel_models。CreateTable 只建这两张表, 且同样带上外键。
+	// 老库的 channel_keys 可能仍是旧结构(缺 name/key 列), 此时按当前模型重建。
+	// 本迁移稍后会清空这两张表并从 channels 重建, 故旧数据无需保留。
+	if db.Migrator().HasTable(&model.ChannelKey{}) && !hasPhysicalColumn(db, "channel_keys", "name") {
+		if err := db.Migrator().DropTable(&model.ChannelKey{}); err != nil {
+			return fmt.Errorf("failed to drop legacy channel_keys: %w", err)
+		}
+	}
+	if db.Migrator().HasTable(&model.ChannelGrant{}) && !hasPhysicalColumn(db, "channel_grants", "protocols") {
+		if err := db.Migrator().DropTable(&model.ChannelGrant{}); err != nil {
+			return fmt.Errorf("failed to drop legacy channel_grants: %w", err)
+		}
+	}
 	for _, table := range []any{&model.ChannelKey{}, &model.ChannelGrant{}} {
 		if db.Migrator().HasTable(table) {
 			continue
@@ -240,7 +252,10 @@ func migrateGroupItemsToGrants(db *gorm.DB, grantIDByModel map[int]int) error {
 	if err := db.Migrator().DropTable(&model.GroupItem{}); err != nil {
 		return fmt.Errorf("failed to drop legacy group_items: %w", err)
 	}
-	if err := db.AutoMigrate(&model.GroupItem{}); err != nil {
+	// 不能用 AutoMigrate：它会顺着 GroupItem->ChannelGrant 外键回溯并重建 channel_grants，
+	// SQLite 下重建父表会级联清空本迁移刚写入的 508 条授权，导致下面插入 group_items 全部违反外键。
+	// 表已 Drop，这里只按当前模型建回这一张表，不动父表。
+	if err := db.Migrator().CreateTable(&model.GroupItem{}); err != nil {
 		return fmt.Errorf("failed to create group_items: %w", err)
 	}
 	if len(items) > 0 {
@@ -248,7 +263,7 @@ func migrateGroupItemsToGrants(db *gorm.DB, grantIDByModel map[int]int) error {
 			return fmt.Errorf("failed to create migrated group_items: %w", err)
 		}
 	}
-	if len(discardedIDs) > 0 {
+	if len(discardedIDs) > 0 && hasPhysicalColumn(db, "groups", "active_item_id") {
 		if err := db.Model(&groupsTable{}).Where("active_item_id IN ?", discardedIDs).
 			Update("active_item_id", 0).Error; err != nil {
 			return fmt.Errorf("failed to clear discarded active items: %w", err)

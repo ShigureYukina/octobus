@@ -52,6 +52,12 @@ func InitDB(dbType, dsn string, debug bool) error {
 	if err := migrate.BeforeAutoMigrate(db); err != nil {
 		return err
 	}
+	// 全局 AutoMigrate 会按最新模型收敛表结构。SQLite 下 channel_models 若需补列/补索引会重建表，
+	// 其指向子表的外键在 foreign_keys=ON 时会级联清空 channel_grants 与 group_items。
+	// 迁移阶段已完整建立并填充这些表，收敛期间临时关闭外键，避免重建时误删子表数据。
+	if dbType == "sqlite" {
+		db.Exec("PRAGMA foreign_keys = OFF")
+	}
 	if err := db.AutoMigrate(
 		&model.User{},
 		&model.Channel{},
@@ -69,7 +75,13 @@ func InitDB(dbType, dsn string, debug bool) error {
 		&model.StatsAPIKey{},
 		&migrate.MigrationRecord{},
 	); err != nil {
+		if dbType == "sqlite" {
+			db.Exec("PRAGMA foreign_keys = ON")
+		}
 		return err
+	}
+	if dbType == "sqlite" {
+		db.Exec("PRAGMA foreign_keys = ON")
 	}
 	if err := migrate.AfterAutoMigrate(db); err != nil {
 		return err
